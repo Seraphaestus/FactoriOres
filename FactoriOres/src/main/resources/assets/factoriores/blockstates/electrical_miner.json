@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "lit=0": { "model": "factoriores:block/electrical_miner" },
+  	"lit=1": { "model": "factoriores:block/electrical_miner_lit_1" },
+  	"lit=2": { "model": "factoriores:block/electrical_miner_lit_2" },
+  	"lit=3": { "model": "factoriores:block/electrical_miner_lit_3" }
+  }
+}

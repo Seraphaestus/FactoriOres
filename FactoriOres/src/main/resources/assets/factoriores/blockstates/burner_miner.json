@@ -1,0 +1,6 @@
+{
+  "variants": {
+  	"lit=false": { "model": "factoriores:block/burner_miner" },
+  	"lit=true": { "model": "factoriores:block/burner_miner_lit" }
+  }
+}

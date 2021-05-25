@@ -1,0 +1,79 @@
+{
+	"itemGroup.factoriores": "FactoriOres",
+	
+	"item.factoriores.sulfur_dust": "Sulfur Dust",
+	"item.factoriores.sulfuric_acid_bucket": "Sulfuric Acid Bucket",
+	"item.factoriores.drill_head": "Drill Head",
+
+	"block.factoriores.gangue": "Gangue",
+	"block.factoriores.sulfur_block": "Block of Sulfur",
+	
+	"block.factoriores.aluminum_ore": "Aluminum Deposit",
+	"block.factoriores.coal_ore": "Coal Deposit",
+	"block.factoriores.copper_ore": "Copper Deposit",
+	"block.factoriores.diamond_ore": "Diamond Deposit",
+	"block.factoriores.emerald_ore": "Emerald Deposit",
+	"block.factoriores.gold_ore": "Gold Deposit",
+	"block.factoriores.iron_ore": "Iron Deposit",
+	"block.factoriores.lapis_ore": "Lapis Deposit",
+	"block.factoriores.lead_ore": "Lead Deposit",
+	"block.factoriores.nickel_ore": "Nickel Deposit",
+	"block.factoriores.quartz_ore": "Quartz Deposit",
+	"block.factoriores.redstone_ore": "Redstone Deposit",
+	"block.factoriores.silver_ore": "Silver Deposit",
+	"block.factoriores.stone_ore": "Stone Deposit",
+	"block.factoriores.sulfur_ore": "Sulfur Deposit",
+	"block.factoriores.uranium_ore": "Uranium Deposit",
+	"block.factoriores.zinc_ore": "Zinc Deposit",
+	
+	"block.factoriores.lava_deposit": "Lava Deposit",
+	"block.factoriores.oil_deposit": "Oil Deposit",
+	"block.factoriores.water_deposit": "Water Deposit",
+	
+	"block.factoriores.sulfuric_acid": "Sulfuric Acid",
+	  
+	"block.factoriores.burner_miner": "Burner Miner",
+	"block.factoriores.creative_miner": "Creative Miner",
+	"block.factoriores.electrical_miner": "Electrical Miner",
+	"block.factoriores.mechanical_miner": "Mechanical Miner",
+	  
+	"factoriores.tooltip.ore_miner_info": "Ore Miner Info:",
+	"factoriores.tooltip.ore_depletion_eta": "Time Until Ore Depleted:",
+	"factoriores.tooltip.ore_depletion_days": "Over 1 Day",
+	"factoriores.tooltip.ore_block_dummy": "(Will not deplete or produce resources)",
+	"factoriores.tooltip.ore_block_infinite": "(Will not deplete)",
+	"factoriores.tooltip.ore_requires_lixiviant": "(Requires a lixiviant to mine)",
+	
+	"factoriores.jei.sulfur_process": "Sulfuric Acid can be obtained by setting Blocks of Sulfur on fire",
+	  
+	"block.factoriores.mechanical_miner.tooltip": "MECHANICAL MINER",
+	"block.factoriores.mechanical_miner.tooltip.summary": "Used for _mining_ ores from large _ore deposits_ in the world.",
+	"block.factoriores.mechanical_miner.tooltip.condition1": "When Powered by Kinetics",
+	"block.factoriores.mechanical_miner.tooltip.behaviour1": "Starts _mining_ ores, when placed on a valid _ore deposit_",
+	"block.factoriores.mechanical_miner.tooltip.condition2": "When Powered by Redstone",
+	"block.factoriores.mechanical_miner.tooltip.behaviour2": "Disables the _miner_",
+	"block.factoriores.mechanical_miner.tooltip.condition3": "When Right-clicked",
+	"block.factoriores.mechanical_miner.tooltip.behaviour3": "Collects the outputs manually.",
+	
+	"create.ponder.mechanical_miner.header": "Extracting ores using the Mechanical Miner",
+	"create.ponder.mechanical_miner.text_1": "The Mechanical Miner extracts ores by drilling when placed on an ore deposit",
+	"create.ponder.mechanical_miner.text_2": "It can be powered from the side using cogwheels",
+	"create.ponder.mechanical_miner.text_3": "Its mining speed depends on the Rotational Input",
+	"create.ponder.mechanical_miner.text_4": "After some time, the result can be obtained via Right-click",
+	"create.ponder.mechanical_miner.text_5": "The outputs can also be extracted by automation",
+	
+	"create.ponder.mechanical_miner_lixiviant.header": "Using the Mechanical Miner with lixiviants",
+	"create.ponder.mechanical_miner_lixiviant.text_1": "Some ores are too hard to be mined by hand and need to be dissolved by a lixiviant",
+	"create.ponder.mechanical_miner_lixiviant.text_2": "x",
+	"create.ponder.mechanical_miner_lixiviant.text_3": "One valid lixiviant, per default configuration, is Sulfuric Acid",
+	
+	"create.ponder.mechanical_miner_fluid_deposits.header": "Extracting fluids using the Mechanical Miner",
+	"create.ponder.mechanical_miner_fluid_deposits.text_1": "Some deposits contain fluids, and cannot be mined by hand",
+	"create.ponder.mechanical_miner_fluid_deposits.text_2": "x",
+	"create.ponder.mechanical_miner_fluid_deposits.text_3": "Simply place a valid tank on top of the miner",
+	"create.ponder.mechanical_miner_fluid_deposits.text_4": "and it will extract the fluid into the tank",
+	
+	"commands.setblockoredeposit.success": "Changed the block at %s, %s, %s",
+	"commands.setblockoredeposit.failed": "Could not set the block (check block is a FactoriOres ore deposit)",
+	"commands.setblockoredeposit.failed_on_type": "The input block is not a valid FactoriOres ore deposit"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+  	{
+  		"type": "forge:item_exists",
+  		"item": "factoriores:sulfur_block"
+  	}
+  ],
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:dusts/sulfur"
+    }
+  },
+  "result": {
+    "item": "factoriores:sulfur_block"
+  }
+}

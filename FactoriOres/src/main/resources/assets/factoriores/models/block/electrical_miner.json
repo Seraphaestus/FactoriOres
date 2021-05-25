@@ -1,0 +1,9 @@
+{
+	"parent":"factoriores:block/miner",
+	"textures": {
+        "side": "factoriores:block/electrical_miner_side",
+        "bottom": "factoriores:block/electrical_miner_bottom",
+        "top": "factoriores:block/electrical_miner_top",
+        "parts": "factoriores:block/electrical_miner_parts"
+    }
+}

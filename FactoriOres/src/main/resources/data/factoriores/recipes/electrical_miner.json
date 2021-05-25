@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "nRn",
+    " D "
+  ],
+  "key": {
+    "B": {
+    	"tag": "forge:storage_blocks/iron"
+    },
+    "R": {
+    	"tag": "forge:storage_blocks/redstone"
+    },
+    "D": {
+    	"item": "factoriores:drill_head"
+    },
+    "n": {
+    	"tag": "forge:nuggets/iron"
+    }
+  },
+  "result": {
+  	"item": "factoriores:electrical_miner"
+  }
+}

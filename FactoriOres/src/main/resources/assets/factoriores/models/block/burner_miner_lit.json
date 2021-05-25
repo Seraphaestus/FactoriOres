@@ -1,0 +1,7 @@
+{
+	"parent":"factoriores:block/burner_miner",
+	"textures": {
+        "side": "factoriores:block/burner_miner_side_lit",
+        "particle": "factoriores:block/burner_miner_side"
+    }
+}

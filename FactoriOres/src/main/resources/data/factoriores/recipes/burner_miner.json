@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "nFn",
+    " D "
+  ],
+  "key": {
+    "S": {
+    	"tag": "forge:stone"
+    },
+    "F": {
+    	"item": "minecraft:furnace"
+    },
+    "D": {
+    	"item": "factoriores:drill_head"
+    },
+    "n": {
+    	"tag": "forge:nuggets/iron"
+    }
+  },
+  "result": {
+  	"item": "factoriores:burner_miner"
+  }
+}

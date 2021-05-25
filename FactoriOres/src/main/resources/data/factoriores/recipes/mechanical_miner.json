@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+  	{
+  		"type": "forge:mod_loaded",
+  		"modid": "create"
+  	},
+  	{
+  		"type": "forge:item_exists",
+  		"item": "factoriores:mechanical_miner"
+  	}
+  ],
+  "pattern": [
+    " C ",
+    "nWn",
+    " D "
+  ],
+  "key": {
+    "C": {
+    	"item": "create:copper_casing"
+    },
+    "W": {
+    	"item": "create:cogwheel"
+    },
+    "D": {
+    	"item": "factoriores:drill_head"
+    },
+    "n": {
+    	"tag": "forge:nuggets/copper"
+    }
+  },
+  "result": {
+  	"item": "factoriores:mechanical_miner"
+  }
+}

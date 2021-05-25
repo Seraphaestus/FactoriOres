@@ -1,0 +1,10 @@
+{
+	"replace": false,
+	"values": [
+		"factoriores:sulfuric_acid"
+	],
+	"optional": [
+  		"mekanism:sulfuric_acid",
+  		"mekanism:hydrofluoric_acid"
+	]
+}

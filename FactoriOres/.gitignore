@@ -1,0 +1,13 @@
+/.gradle/
+/.settings/
+/bin/
+/build/
+/run/
+
+/src/test/
+
+/.classpath
+/.project
+/runClient.launch
+/runData.launch
+/runServer.launch
