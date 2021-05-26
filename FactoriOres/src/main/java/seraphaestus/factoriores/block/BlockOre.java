@@ -4,11 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import mcjty.theoneprobe.api.IProbeHitData;
-import mcjty.theoneprobe.api.IProbeInfo;
-import mcjty.theoneprobe.api.IProbeInfoAccessor;
-import mcjty.theoneprobe.api.IProgressStyle;
-import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -17,18 +12,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import seraphaestus.factoriores.ConfigHandler;
-import seraphaestus.factoriores.FactoriOres;
 import seraphaestus.factoriores.tile.TileEntityOre;
 
-public class BlockOre extends Block implements IProbeInfoAccessor {
+public class BlockOre extends Block {
 
-	protected int amountMin;
-	protected int amountMax;
+	public int amountMin;
+	public int amountMax;
 	public String name;
 
 	public BlockOre(String name, Properties properties, int amountMin, int amountMax) {
@@ -112,33 +104,5 @@ public class BlockOre extends Block implements IProbeInfoAccessor {
 	public boolean requiresLixiviant() {
 		String registryName = this.getRegistryName().toString();
 		return ConfigHandler.COMMON.oresWhichRequireLiquidMining.get().contains(registryName);
-	}
-	
-	@Override
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
-		final IProgressStyle oreProgressStyle = probeInfo.defaultProgressStyle()
-	            .width(100)
-	            .height(12)
-	            .showText(true)
-	            .filledColor(0xffdba570)
-	            .alternateFilledColor(0xff8c633b);
-
-		TileEntity tileEntity = world.getTileEntity(data.getPos());
-		if (tileEntity instanceof TileEntityOre) {
-			TileEntityOre tileEntityOre = (TileEntityOre)tileEntity;
-			int amount = tileEntityOre.getAmount();
-			
-			probeInfo.progress(amount, amountMax, oreProgressStyle);
-			
-			if (amount == TileEntityOre.AMOUNT_DUMMY) {
-				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_dummy").formatted(TextFormatting.GRAY));
-			} else if (amount == TileEntityOre.AMOUNT_INFINITE) { 
-				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_infinite").formatted(TextFormatting.GRAY));
-			}
-			
-			if (this.requiresLixiviant()) {
-				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_requires_lixiviant").formatted(TextFormatting.GREEN));
-			}
-		}
 	}
 }
