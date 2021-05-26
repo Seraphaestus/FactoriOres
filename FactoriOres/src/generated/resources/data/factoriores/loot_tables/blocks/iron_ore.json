@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create:crushed_iron_ore"
+          "name": "minecraft:iron_nugget"
         }
       ]
     }

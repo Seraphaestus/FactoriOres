@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "create:crushed_gold_ore"
+          "name": "minecraft:gold_nugget"
         }
       ]
     }
