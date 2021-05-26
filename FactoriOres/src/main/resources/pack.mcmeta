@@ -1,7 +1,6 @@
 {
     "pack": {
         "description": "FactoriOres resources",
-        "pack_format": 6,
-        "_comment": "Comment here"
+        "pack_format": 6
     }
 }

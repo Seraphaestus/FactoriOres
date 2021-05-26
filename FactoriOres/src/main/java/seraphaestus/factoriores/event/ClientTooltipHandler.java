@@ -24,15 +24,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import seraphaestus.factoriores.FactoriOres;
-import seraphaestus.factoriores.Registrar;
+import seraphaestus.factoriores.compat.CreateRegistrar;
 import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
 
-@EventBusSubscriber(value = Dist.CLIENT)
 public class ClientTooltipHandler {
 	
 	// copied from Create's ClientEvents as a workaround for the fact that Create tooltips are currently tied to a hardcoded item.create translation key prefix
@@ -43,7 +40,7 @@ public class ClientTooltipHandler {
 		if (event.getPlayer() == null) return;
 
 		ItemStack stack = event.getItemStack();
-		if (stack.isItemEqual(Registrar.blockMechanicalMiner.asStack())) {
+		if (stack.isItemEqual(CreateRegistrar.blockMechanicalMiner.asStack())) {
 			
 			if (TooltipHelper.hasTooltip(stack, event.getPlayer())) {
 				List<ITextComponent> itemTooltip = event.getToolTip();

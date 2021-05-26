@@ -6,10 +6,9 @@ license="MIT"
 modId="factoriores"
 version="${file.jarVersion}"
 displayName="FactoriOres"
-credits="Credits go here"
 authors="Seraphaestus"
 description='''
-Mod description goes here
+Factoriores is a mod that adds ores and miners inspired by the game Factorio
 '''
 
 [[dependencies.factoriores]]
@@ -18,10 +17,17 @@ Mod description goes here
     versionRange="[36,)"
     ordering="NONE"
     side="BOTH"
-# Here's another dependency
+
 [[dependencies.factoriores]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+    
+[[dependencies.factoriores]]
+    modId="create"
+    mandatory=false
+    versionRange="[mc1.16.5_v0.3.1,)"
     ordering="NONE"
     side="BOTH"

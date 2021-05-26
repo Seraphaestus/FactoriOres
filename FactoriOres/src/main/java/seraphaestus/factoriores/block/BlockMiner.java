@@ -2,8 +2,6 @@ package seraphaestus.factoriores.block;
 
 import java.util.Random;
 
-import com.simibubi.create.foundation.utility.VecHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -28,6 +26,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import seraphaestus.factoriores.ConfigHandler;
 import seraphaestus.factoriores.tile.TileEntityMiner;
+import seraphaestus.factoriores.util.VecHelper;
 
 public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvider {
 	

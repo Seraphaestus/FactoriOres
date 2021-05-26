@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import seraphaestus.factoriores.ConfigHandler;
-import seraphaestus.factoriores.Registrar;
+import seraphaestus.factoriores.compat.CreateRegistrar;
 import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
 
 public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntityMechanicalMiner>, ICogWheel {
@@ -50,7 +50,7 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return Registrar.tileMechanicalMiner.create();
+		return CreateRegistrar.tileMechanicalMiner.create();
 	}
 	
 	// -------- Create Rotation

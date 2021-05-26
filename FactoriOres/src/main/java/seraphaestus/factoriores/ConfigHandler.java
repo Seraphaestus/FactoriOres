@@ -66,6 +66,10 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.IntValue genDistanceNear;
 		public final ForgeConfigSpec.IntValue genDistanceMid;
 		public final ForgeConfigSpec.IntValue genDistanceFar;
+		public final ForgeConfigSpec.DoubleValue genChanceModAll;
+		public final ForgeConfigSpec.DoubleValue genChanceModNear;
+		public final ForgeConfigSpec.DoubleValue genChanceModMid;
+		public final ForgeConfigSpec.DoubleValue genChanceModFar;
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> oresWhichRequireLiquidMining;
 		public final ForgeConfigSpec.IntValue lixiviantDrainedPerUnitProgress;
 		
@@ -116,6 +120,20 @@ public class ConfigHandler {
 					.comment("The distance from spawn beyond which ore deposits in the FAR category will start to spawn")
 					.defineInRange("genDistanceFar", 1024, 0, Integer.MAX_VALUE);
 			
+			genChanceModAll = builder
+					.comment("This boosts the generation rate of patches below the NEAR distance. e.g. set to 2 to make it twice as likely.")
+					.defineInRange("genChanceModAll", 1, 0, Double.MAX_VALUE);
+			genChanceModNear = builder
+					.comment("This boosts the generation rate of patches within the range [NEAR, MID]. e.g. set to 2 to make it twice as likely.")
+					.defineInRange("genChanceModNear", 1, 0, Double.MAX_VALUE);
+			genChanceModMid = builder
+					.comment("This boosts the generation rate of patches within the range [MID, FAR]. e.g. set to 2 to make it twice as likely.")
+					.defineInRange("genChanceModMid", 1, 0, Double.MAX_VALUE);
+			genChanceModFar = builder
+					.comment("This boosts the generation rate of patches above the FAR distance. e.g. set to 2 to make it twice as likely.")
+					.defineInRange("genChanceModFar", 1, 0, Double.MAX_VALUE);
+			
+					
 			builder.pop();
 			
 			builder.push("lixiviant");

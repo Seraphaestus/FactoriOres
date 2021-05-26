@@ -27,8 +27,27 @@ public class PlacementOreDeposit extends Placement<PlacementConfigOreDeposit> {
 		else if (config.distance == GenDistance.NEAR && distanceFromZero < ConfigHandler.COMMON.genDistanceNear.get()) failFlag = true;
 		else if (config.distance == GenDistance.MID && distanceFromZero < ConfigHandler.COMMON.genDistanceMid.get()) failFlag = true;
 		else if (config.distance == GenDistance.FAR && distanceFromZero < ConfigHandler.COMMON.genDistanceFar.get()) failFlag = true;
-			
-		if (!failFlag && rnd.nextInt(config.rarity) == 0) {
+		
+		double chanceMod = 1;
+		switch (config.distance) {
+			case ALWAYS:
+				chanceMod = ConfigHandler.COMMON.genChanceModAll.get();
+				break;
+			case NEAR:
+				chanceMod = ConfigHandler.COMMON.genChanceModNear.get();
+				break;
+			case MID:
+				chanceMod = ConfigHandler.COMMON.genChanceModMid.get();
+				break;
+			case FAR:
+				chanceMod = ConfigHandler.COMMON.genChanceModFar.get();
+				break;
+			default:
+				break;
+		}
+		
+		int randomMax = Math.max(1, (int)Math.round(config.rarity / chanceMod));
+		if (!failFlag && rnd.nextInt(randomMax) == 0) {
 			int x = rnd.nextInt(16) + pos.getX();
 			int z = rnd.nextInt(16) + pos.getZ();
 			int y = decorationHelper.getMaxY() - rnd.nextInt(config.genDepth);

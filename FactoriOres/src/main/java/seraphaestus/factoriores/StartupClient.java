@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import seraphaestus.factoriores.compat.CreateRegistrar;
 import seraphaestus.factoriores.render.RendererMiner;
 
 public class StartupClient {
@@ -17,12 +18,11 @@ public class StartupClient {
 	
 	@SubscribeEvent
 	public static void onClientSetupEvent(FMLClientSetupEvent event) {
-		//for (BlockSimple block : Registrar.oreBlocks) {
-		//	RenderTypeLookup.setRenderLayer(block, RenderType.solid());
-		//}
-		RenderTypeLookup.setRenderLayer(Registrar.blockMechanicalMiner.get(), RenderType.getCutout());
-		
-		Registrar.registerPondering();
+		if (FactoriOres.CREATE_ACTIVE) {
+			RenderTypeLookup.setRenderLayer(CreateRegistrar.blockMechanicalMiner.get(), RenderType.getCutout());
+			
+			CreateRegistrar.registerPondering();
+		}
 	}
 	
 	@SubscribeEvent

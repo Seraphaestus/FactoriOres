@@ -90,12 +90,13 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
 	
 	compileOnly fg.deobf("curse.maven:create-328085:3278516")
+	
     compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:1.16-3.1.3-21:api")
-    compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75:api")
-    
-    runtimeOnly fg.deobf("curse.maven:create-328085:3278516")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:1.16-3.1.3-21")
-   	runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75")
+    
+    compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75")
+    
     runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:3102280")
     runtimeOnly fg.deobf("curse.maven:immersive-petroleum-268250:3137386")
 }

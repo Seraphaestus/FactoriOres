@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import seraphaestus.factoriores.Registrar;
 import seraphaestus.factoriores.block.BlockMechanicalMiner;
+import seraphaestus.factoriores.compat.CreateRegistrar;
 
 public class PonderScenes {
 	
@@ -65,7 +66,7 @@ public class PonderScenes {
 		scene.world.showSection(stackedCogs, Direction.DOWN);
 		scene.idle(10);
 		scene.world.setKineticSpeed(minerSelect, 16);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
 		scene.effects.indicateSuccess(miner);
 		scene.effects.emitParticles(minerTop.subtract(0, 2, 0), particleEmitter, ORE_PARTICLE_DENSITY, 360);
 		scene.idle(10);
@@ -119,7 +120,7 @@ public class PonderScenes {
 		scene.idle(60);
 		
 		scene.world.setBlock(miner.down(2), Registrar.blockGangue.getDefaultState(), true);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
 	}
 	
 	public static void mechanicalMinerLixiviant(SceneBuilder scene, SceneBuildingUtil util) {
@@ -202,7 +203,7 @@ public class PonderScenes {
 		
 		scene.idle(10);
 		scene.world.setKineticSpeed(util.select.everywhere(), 16);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
 		scene.effects.emitParticles(util.vector.topOf(miner).subtract(0, 2, 0), particleEmitter, ORE_PARTICLE_DENSITY, 120);
 		scene.effects.indicateSuccess(miner.down());
 		scene.idle(50);
@@ -214,7 +215,7 @@ public class PonderScenes {
 		scene.idle(70);
 		
 		scene.world.setBlock(miner.down(2), Registrar.blockGangue.getDefaultState(), true);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
 	}
 	
 	public static void mechanicalMinerFluidDeposits(SceneBuilder scene, SceneBuildingUtil util) {
@@ -273,7 +274,7 @@ public class PonderScenes {
 		scene.idle(30);
 
 		scene.world.setKineticSpeed(util.select.everywhere(), 16);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, true), false);
 		scene.effects.emitParticles(util.vector.topOf(miner).subtract(0, 2, 0), particleEmitter, ORE_PARTICLE_DENSITY, 120);
 		scene.effects.indicateSuccess(miner.down());
 		scene.idle(10);
@@ -316,7 +317,7 @@ public class PonderScenes {
 		scene.idle(60);
 		
 		scene.world.setBlock(miner.down(2), Registrar.blockGangue.getDefaultState(), true);
-		scene.world.setBlock(miner, Registrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
+		scene.world.setBlock(miner, CreateRegistrar.blockMechanicalMiner.get().getDefaultState().with(BlockMechanicalMiner.ENABLED, false), false);
 	}
 	
 	private static final float ORE_PARTICLE_DENSITY = 0.3f;

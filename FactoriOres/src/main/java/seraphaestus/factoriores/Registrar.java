@@ -1,22 +1,9 @@
 package seraphaestus.factoriores;
 
-import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static seraphaestus.factoriores.FactoriOres.MOD_ID;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.simibubi.create.AllTags.AllBlockTags;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.AllSections;
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.foundation.ponder.PonderRegistry;
-import com.simibubi.create.foundation.ponder.PonderRegistry.MultiSceneBuilder;
-import com.simibubi.create.foundation.ponder.content.PonderTag;
-import com.simibubi.create.repack.registrate.util.NonNullLazyValue;
-import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
-import com.simibubi.create.repack.registrate.util.entry.TileEntityEntry;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractBlock.Properties;
@@ -39,8 +26,6 @@ import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -48,7 +33,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import seraphaestus.factoriores.block.BlockBurnerMiner;
 import seraphaestus.factoriores.block.BlockCreativeMiner;
 import seraphaestus.factoriores.block.BlockElectricalMiner;
-import seraphaestus.factoriores.block.BlockMechanicalMiner;
 import seraphaestus.factoriores.block.BlockOre;
 import seraphaestus.factoriores.block.BlockOreFluid;
 import seraphaestus.factoriores.block.BlockSulfur;
@@ -56,13 +40,9 @@ import seraphaestus.factoriores.data.OreTemplate;
 import seraphaestus.factoriores.fluid.FluidBlockSulfuricAcid;
 import seraphaestus.factoriores.fluid.FluidSulfuricAcid;
 import seraphaestus.factoriores.item.BlockItemMiner;
-import seraphaestus.factoriores.ponder.PonderScenes;
-import seraphaestus.factoriores.render.RendererMechanicalMiner;
-import seraphaestus.factoriores.tile.InstanceMinerCog;
 import seraphaestus.factoriores.tile.TileEntityBurnerMiner;
 import seraphaestus.factoriores.tile.TileEntityCreativeMiner;
 import seraphaestus.factoriores.tile.TileEntityElectricalMiner;
-import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
 import seraphaestus.factoriores.tile.TileEntityOre;
 import seraphaestus.factoriores.tile.TileEntityOreFluid;
 import seraphaestus.factoriores.worldgen.FeatureConfigOreDeposit;
@@ -79,7 +59,6 @@ public class Registrar {
 	private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
 	private static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, MOD_ID);
 	private static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MOD_ID);
-	public static final NonNullLazyValue<CreateRegistrate> createRegistrate = CreateRegistrate.lazy(FactoriOres.MOD_ID);
 	
 	// -------- World gen registers
 	
@@ -120,25 +99,6 @@ public class Registrar {
 
 	public static final BlockElectricalMiner blockElectricalMiner = new BlockElectricalMiner(Properties.create(Material.IRON));
 	public static RegistryObject<TileEntityType<TileEntityElectricalMiner>> tileElectricalMiner;
-
-	public static final BlockEntry<BlockMechanicalMiner> blockMechanicalMiner = createRegistrate.get()
-		.itemGroup(() -> StartupCommon.ITEM_GROUP)
-		.block("mechanical_miner", BlockMechanicalMiner::new)
-			.initialProperties(SharedProperties::softMetal)
-			.properties(AbstractBlock.Properties::nonOpaque)
-			.properties(p -> p.hardnessAndResistance(3.5F, 3.5F))
-			.properties(p -> p.requiresTool())
-			.tag(AllBlockTags.SAFE_NBT.tag) // Unsure what this tag means (contraption safe?)
-			.item(BlockItemMiner::new)
-			.transform(customItemModel())
-			.register();
-	public static final TileEntityEntry<TileEntityMechanicalMiner> tileMechanicalMiner = createRegistrate.get()
-		.itemGroup(() -> StartupCommon.ITEM_GROUP)
-		.tileEntity("mechanical_miner_tile", TileEntityMechanicalMiner::new)
-			.instance(() -> InstanceMinerCog::new)
-			.validBlocks(blockMechanicalMiner)
-			.renderer(() -> RendererMechanicalMiner::new)
-			.register();
 	
 	// -------- Worldgen features
 	
@@ -189,54 +149,31 @@ public class Registrar {
 	private static void setupOreTypes() {
 		oreTemplates = new ArrayList<OreTemplate>();
 		
-		// Vanilla Ore Drops
-		String ironDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_iron_ore" : "minecraft:iron_nugget";
-		String goldDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_gold_ore" : "minecraft:gold_nugget";
-		String sulfurDrop = ConfigHandler.COMMON.sulfurEnabled.get() ? "factoriores:sulfur_dust" : "minecraft:air";
-		// Create Ore Drops
-		String copperDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_copper_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_copper" : "minecraft:air");
-		String zincDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_zinc_ore" : "minecraft:air";
-		// Immersive Engineering Ore Drops
-		String aluminumDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_aluminum_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_aluminum" : "minecraft:air");
-		String leadDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_lead_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_lead" : "minecraft:air");
-		String nickelDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_nickel_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_nickel" : "minecraft:air");
-		String silverDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_silver_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_silver" : "minecraft:air");
-		String uraniumDrop = FactoriOres.CREATE_ACTIVE ? "create:crushed_uranium_ore" : 
-							(FactoriOres.IE_ACTIVE ? "immersiveengineering:dust_uranium" : "minecraft:air");
-		
 		//Vanilla Ores
-		oreTemplates.add(new OreTemplate("coal", "minecraft:coal", GenDistance.ALWAYS));
-		oreTemplates.add(new OreTemplate("iron", ironDrop, GenDistance.ALWAYS));
-		oreTemplates.add(new OreTemplate("gold", goldDrop, GenDistance.MID));
+		oreTemplates.add(new OreTemplate("coal", "minecraft:coal", GenDistance.NEAR));
+		oreTemplates.add(new OreTemplate("iron", "minecraft:iron_nugget", GenDistance.NEAR));
+		oreTemplates.add(new OreTemplate("gold", "minecraft:gold_nugget", GenDistance.MID));
 		oreTemplates.add(new OreTemplate("diamond", "minecraft:diamond", GenDistance.DISABLED));
 		oreTemplates.add(new OreTemplate("emerald", "minecraft:emerald", GenDistance.DISABLED));
 		oreTemplates.add(new OreTemplate("redstone", "minecraft:redstone", GenDistance.MID));
 		oreTemplates.add(new OreTemplate("lapis", "minecraft:lapis_lazuli", GenDistance.MID));
 		oreTemplates.add(new OreTemplate("quartz", "minecraft:quartz", GenDistance.MID));
 		oreTemplates.add(new OreTemplate("stone", "minecraft:stone", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("sulfur", sulfurDrop, GenDistance.MID));
+		oreTemplates.add(new OreTemplate("sulfur", "factoriores:sulfur_dust", GenDistance.MID));
 		// Create Ores
-		oreTemplates.add(new OreTemplate("copper", copperDrop, FactoriOres.IE_ACTIVE || FactoriOres.CREATE_ACTIVE ? GenDistance.ALWAYS : GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("zinc", zincDrop, FactoriOres.CREATE_ACTIVE ? GenDistance.NEAR : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("copper", "create:crushed_copper_ore", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("zinc", "create:crushed_zinc_ore", GenDistance.DISABLED));
 		// Immersive Engineering Ores
-		oreTemplates.add(new OreTemplate("aluminum", aluminumDrop, FactoriOres.IE_ACTIVE ? GenDistance.NEAR : GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("lead", leadDrop, FactoriOres.IE_ACTIVE ? GenDistance.DISABLED : GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("nickel", nickelDrop, FactoriOres.IE_ACTIVE ? GenDistance.FAR : GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("silver", silverDrop, FactoriOres.IE_ACTIVE ? GenDistance.MID : GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("uranium", uraniumDrop, FactoriOres.IE_ACTIVE ? GenDistance.FAR : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("aluminum", "immersiveengineering:dust_aluminum", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("lead", "immersiveengineering:dust_lead", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("nickel", "immersiveengineering:dust_nickel", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("silver", "immersiveengineering:dust_silver", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("uranium", "immersiveengineering:dust_uranium", GenDistance.DISABLED));
 		
 		//fluids
-		
-		String oilDrop = "minecraft:air";
-		
-		oreTemplates.add(new OreTemplate("water", "minecraft:water", GenDistance.NEAR).setFluid());
-		oreTemplates.add(new OreTemplate("lava", "minecraft:lava", GenDistance.MID).setFluid());
-		oreTemplates.add(new OreTemplate("oil", oilDrop, GenDistance.FAR).setFluid());
+		oreTemplates.add(new OreTemplate("water", "minecraft:water_bucket", GenDistance.NEAR).setFluid());
+		oreTemplates.add(new OreTemplate("lava", "minecraft:lava_bucket", GenDistance.MID).setFluid());
+		oreTemplates.add(new OreTemplate("oil", "immersivepetroleum:oil_bucket", GenDistance.DISABLED).setFluid());
 	}
 
 	private static void registerOreBlocksTilesAndFeatures() {
@@ -276,22 +213,8 @@ public class Registrar {
 
 		registerMinerBlock("electrical_miner", blockElectricalMiner);
 		tileElectricalMiner = TILES.register("electrical_miner_tile", () -> TileEntityType.Builder.create(TileEntityElectricalMiner::new, blockElectricalMiner).build(null));
-		
-		Create.registrate().addToSection(blockMechanicalMiner, AllSections.KINETICS);
 	}
 	
-	@OnlyIn(Dist.CLIENT)
-	public static void registerPondering() {
-		MultiSceneBuilder msb = PonderRegistry.forComponents(blockMechanicalMiner)
-			.addStoryBoard("mechanical_miner", PonderScenes::mechanicalMiner, PonderTag.KINETIC_APPLIANCES);
-		if (ConfigHandler.CLIENT.enableLixiviantPonder.get())
-			msb.addStoryBoard("mechanical_miner_lixiviant", PonderScenes::mechanicalMinerLixiviant);
-		if (ConfigHandler.CLIENT.enableFluidMiningPonder.get())
-			msb.addStoryBoard("mechanical_miner_fluid_deposits", PonderScenes::mechanicalMinerFluidDeposits);
-		
-		PonderRegistry.tags.forTag(PonderTag.KINETIC_APPLIANCES).add(blockMechanicalMiner);
-	}
-
 	private static void registerOreFeature(BlockOre oreBlock, OreTemplate oreTemplate, FeatureOreDeposit oreDeposit) {
 		//Placement configuration
 		PlacementOreDeposit placementOreDeposit = new PlacementOreDeposit(PlacementConfigOreDeposit.CODEC);
