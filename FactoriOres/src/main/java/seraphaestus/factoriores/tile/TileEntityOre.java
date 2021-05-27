@@ -29,7 +29,7 @@ public class TileEntityOre extends TileEntityBase {
 
 	public TileEntityOre(Random rnd, int amountMin, int amountMax) {
 		super(Registrar.tileOreDeposit.get());
-		amount = rnd.nextInt(amountMax - amountMin) + amountMin;
+		amount = amountMax > amountMin ? rnd.nextInt(amountMax - amountMin) + amountMin : amountMin;
 	}
 	public TileEntityOre() {
 		super(Registrar.tileOreDeposit.get());

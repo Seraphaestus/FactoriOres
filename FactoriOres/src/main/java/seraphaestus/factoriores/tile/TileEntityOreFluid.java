@@ -20,7 +20,7 @@ public class TileEntityOreFluid extends TileEntityOre {
 
 	public TileEntityOreFluid(Random rnd, int amountMin, int amountMax) {
 		super(Registrar.tileFluidDeposit.get());
-		amount = rnd.nextInt(amountMax - amountMin) + amountMin;
+		amount = amountMax > amountMin ? rnd.nextInt(amountMax - amountMin) + amountMin : amountMin;
 	}
 	public TileEntityOreFluid() {
 		super(Registrar.tileFluidDeposit.get());
