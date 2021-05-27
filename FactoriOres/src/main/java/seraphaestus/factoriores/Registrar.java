@@ -71,6 +71,7 @@ public class Registrar {
 	public static final INamedTag<Item> tagSulfurDust = ItemTags.makeWrapperTag("forge:dusts/sulfur");
 	public static final INamedTag<Block> tagSulfurBlock = BlockTags.makeWrapperTag("forge:storage_blocks/sulfur");
 	public static final INamedTag<Block> tagStone = BlockTags.makeWrapperTag("forge:stone");
+	public static final INamedTag<Item> tagStoneItem = ItemTags.makeWrapperTag("forge:stone");
 	
 	// -------- Fluids
 	
