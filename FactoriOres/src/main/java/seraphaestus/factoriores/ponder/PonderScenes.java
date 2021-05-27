@@ -131,7 +131,6 @@ public class PonderScenes {
 		Selection stackedCogs = util.select.fromTo(3, 1, 2, 3, 2, 2);
 		
 		BlockPos miner = util.grid.at(2, 2, 2);
-		Selection minerSelect = util.select.position(2, 2, 2);
 		BlockPos tank = util.grid.at(2, 3, 2);
 		Selection tankSelect = util.select.position(2, 3, 2);
 		
@@ -226,7 +225,6 @@ public class PonderScenes {
 		Selection stackedCogs = util.select.fromTo(3, 1, 2, 3, 2, 2);
 		
 		BlockPos miner = util.grid.at(2, 2, 2);
-		Selection minerSelect = util.select.position(2, 2, 2);
 		BlockPos tank = util.grid.at(2, 3, 2);
 		Selection tankSelect = util.select.position(2, 3, 2);
 		

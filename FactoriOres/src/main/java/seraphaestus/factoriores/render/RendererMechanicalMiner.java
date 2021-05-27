@@ -44,7 +44,6 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 		
 		BlockState state = tileEntity.getBlockState();
 		IModelData data = tileEntity.getModelData();
-		float speed = ConfigHandler.CLIENT.staticDrills.get() ? 0 : 5 * tileEntity.getSpeed() / 16f;
 		
 		matrixStack.push();
 		
@@ -56,7 +55,7 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 		if (state.get(BlockMechanicalMiner.ENABLED)) {
 			//double animationTicks = ClientTickHandler.getTotalElapsedTicksInGame() + partialTicks;
 			//float angle = (float)(animationTicks * speed % 360);
-			float angle = getAngleForTe(tileEntity, tileEntity.getPos(), Axis.Y);
+			float angle = ConfigHandler.CLIENT.staticDrills.get() ? 0 : getAngleForTe(tileEntity, tileEntity.getPos(), Axis.Y);
 			matrixStack.translate(0.5, 0.0, 0.5);
 			matrixStack.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(angle));
 			matrixStack.translate(-0.5, 0.0, -0.5);
