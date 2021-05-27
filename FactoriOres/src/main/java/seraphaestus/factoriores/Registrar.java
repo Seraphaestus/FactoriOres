@@ -185,11 +185,11 @@ public class Registrar {
 			Properties properties = Properties.create(Material.ROCK);
 			BlockOre oreBlock;
 			if (ore.isFluid) {
-				BlockOreFluid fluidOre = new BlockOreFluid(ore.name, properties, ore.amountMin, ore.amountMax);
+				BlockOreFluid fluidOre = new BlockOreFluid(ore.name, properties, ConfigHandler.COMMON.oreAmountMin.get(), ConfigHandler.COMMON.oreAmountMax.get());
 				fluidDeposits.add(fluidOre);
 				oreBlock = fluidOre;
 			} else {
-				oreBlock = new BlockOre(ore.name, properties, ore.amountMin, ore.amountMax);
+				oreBlock = new BlockOre(ore.name, properties, ConfigHandler.COMMON.fluidAmountMin.get(), ConfigHandler.COMMON.fluidAmountMax.get());
 				oreDeposits.add(oreBlock);
 			}
 			

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
+import seraphaestus.factoriores.tile.TileEntityOre;
 
 public class ConfigHandler {
 	
@@ -54,6 +55,8 @@ public class ConfigHandler {
 	}
 
 	public static class Common {
+		public final ForgeConfigSpec.BooleanValue sulfurEnabled;
+		
 		public final ForgeConfigSpec.IntValue minerMaxDepth;
 		public final ForgeConfigSpec.IntValue minerRangeCreative;
 		public final ForgeConfigSpec.IntValue minerRangeBurner;
@@ -61,7 +64,7 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.IntValue minerRangeMechanical;
 		public final ForgeConfigSpec.IntValue fluidDepositAmount;
 		public final ForgeConfigSpec.BooleanValue silentMiners;
-		public final ForgeConfigSpec.BooleanValue sulfurEnabled;
+		
 		public final ForgeConfigSpec.BooleanValue worldgenEnabled;
 		public final ForgeConfigSpec.IntValue genDistanceNear;
 		public final ForgeConfigSpec.IntValue genDistanceMid;
@@ -70,6 +73,12 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.DoubleValue genChanceModNear;
 		public final ForgeConfigSpec.DoubleValue genChanceModMid;
 		public final ForgeConfigSpec.DoubleValue genChanceModFar;
+		
+		public final ForgeConfigSpec.IntValue oreAmountMin;
+		public final ForgeConfigSpec.IntValue oreAmountMax;
+		public final ForgeConfigSpec.IntValue fluidAmountMin;
+		public final ForgeConfigSpec.IntValue fluidAmountMax;
+		
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> oresWhichRequireLiquidMining;
 		public final ForgeConfigSpec.IntValue lixiviantDrainedPerUnitProgress;
 		
@@ -132,6 +141,21 @@ public class ConfigHandler {
 			genChanceModFar = builder
 					.comment("This boosts the generation rate of patches above the FAR distance. e.g. set to 2 to make it twice as likely.")
 					.defineInRange("genChanceModFar", 1, 0, Double.MAX_VALUE);
+			builder.pop();
+			
+			builder.push("ores");
+			oreAmountMin = builder
+					.comment("The minimum amount that an ore deposit block will generate with. Set to " + TileEntityOre.AMOUNT_INFINITE + " for infinite.")
+					.defineInRange("oreAmountMin", 10, -1, Integer.MAX_VALUE);
+			oreAmountMax = builder
+					.comment("The maximum amount that an ore deposit block will generate with. Set to " + TileEntityOre.AMOUNT_INFINITE + " for infinite.")
+					.defineInRange("oreAmountMax", 50, -1, Integer.MAX_VALUE);
+			fluidAmountMin = builder
+					.comment("The minimum amount (number of fluidDepositAmounts) that a fluid deposit block will generate with. Set to " + TileEntityOre.AMOUNT_INFINITE + " for infinite.")
+					.defineInRange("fluidAmountMin", 10, -1, Integer.MAX_VALUE);
+			fluidAmountMax = builder
+					.comment("The maximum amount (number of fluidDepositAmounts) that a fluid deposit block will generate with. Set to " + TileEntityOre.AMOUNT_INFINITE + " for infinite.")
+					.defineInRange("fluidAmountMax", 50, -1, Integer.MAX_VALUE);
 			builder.pop();
 			
 			builder.push("lixiviant");
