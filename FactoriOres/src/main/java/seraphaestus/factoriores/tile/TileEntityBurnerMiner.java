@@ -73,8 +73,12 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 	@Override
 	public void doKickstart() {
 		ItemStack itemstack = this.items.getStackInSlot(FUEL_SLOT);
-		((StateDataBurnerMiner) minerStateData).fuelBurnTotalTime = ForgeHooks.getBurnTime(itemstack);
-		((StateDataBurnerMiner) minerStateData).fuelBurnProgress = 1;
+		StateDataBurnerMiner stateData = (StateDataBurnerMiner) minerStateData;
+		
+		double fuelBurnTotalTime = ForgeHooks.getBurnTime(itemstack) * ConfigHandler.COMMON.burnerFuelRate.get();
+		stateData.fuelBurnTotalTime = Math.max(1, (int)Math.floor(fuelBurnTotalTime));
+		
+		stateData.fuelBurnProgress = 1;
 		items.decrStackSize(FUEL_SLOT, 1);
 		super.doKickstart();
 	}

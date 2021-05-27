@@ -66,6 +66,7 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.IntValue minerSpeedBurner;
 		public final ForgeConfigSpec.IntValue minerSpeedElectrical;
 		public final ForgeConfigSpec.IntValue minerSpeedMechanical;
+		public final ForgeConfigSpec.DoubleValue burnerFuelRate;
 		public final ForgeConfigSpec.IntValue fluidDepositAmount;
 		public final ForgeConfigSpec.BooleanValue silentMiners;
 		
@@ -122,6 +123,9 @@ public class ConfigHandler {
 					.comment("The time this miner will take to complete one mining action. (20 = 1 second, at a speed of 16)")
 					.defineInRange("minerSpeedMechanical", 200, 1, Integer.MAX_VALUE);
 			
+			burnerFuelRate = builder
+					.comment("A modifier to the rate at which fuel lasts in the burner miner. (e.g. 2 = fuel lasts 2x as long)")
+					.defineInRange("burnerFuelRate", 3, 0, Double.MAX_VALUE);
 			fluidDepositAmount = builder
 					.comment("The amount in mb of fluid that is extracted in one mining action")
 					.defineInRange("fluidDepositAmount", 1000, 1, Integer.MAX_VALUE);
