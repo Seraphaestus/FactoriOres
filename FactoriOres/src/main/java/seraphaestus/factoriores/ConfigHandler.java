@@ -28,10 +28,10 @@ public class ConfigHandler {
 			builder.push("particles");
 			miningParticleFrequency = builder
 					.comment("The frequency in which block-breaking particles spawn while miners are active")
-					.defineInRange("minerFrequency", 0.75, Double.MIN_VALUE, Double.MAX_VALUE);
+					.defineInRange("minerFrequency", 0.75, 0, Double.MAX_VALUE);
 			furnaceParticleFrequency = builder
 					.comment("The frequency in which flame particles spawn while burner miners are active")
-					.defineInRange("burnerFrequency", 0.75, Double.MIN_VALUE, Double.MAX_VALUE);
+					.defineInRange("burnerFrequency", 0.75, 0, Double.MAX_VALUE);
 			builder.pop();
 			
 			builder.push("pondering");
@@ -132,8 +132,6 @@ public class ConfigHandler {
 			genChanceModFar = builder
 					.comment("This boosts the generation rate of patches above the FAR distance. e.g. set to 2 to make it twice as likely.")
 					.defineInRange("genChanceModFar", 1, 0, Double.MAX_VALUE);
-			
-					
 			builder.pop();
 			
 			builder.push("lixiviant");
