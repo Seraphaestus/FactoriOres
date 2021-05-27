@@ -263,7 +263,8 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 	}
 
 	protected int getTotalMiningTime() {
-		return 200 * 32;	// the *32 comes from the fact that we want to slow down processing speed by 32x, but we can't divide it by 32 because it has to be an int and we don't want to lose precision
+		return ConfigHandler.COMMON.minerSpeedMechanical.get() * 32;
+		// the *32 comes from the fact that we want to slow down processing speed by 32x, but we can't divide it by 32 because it has to be an int and we don't want to lose precision
 	}
 	
 	protected int getRange() {

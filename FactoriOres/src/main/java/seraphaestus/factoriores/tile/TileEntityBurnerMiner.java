@@ -93,8 +93,15 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 	}
 	
 	@Override
+	protected int getTotalMiningTime() {
+		return ConfigHandler.COMMON.minerSpeedBurner.get();
+	}
+	
+	@Override
 	protected int getRange() {
 		return ConfigHandler.COMMON.minerRangeBurner.get();
 	}
+
+
 
 }

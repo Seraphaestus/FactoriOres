@@ -62,6 +62,10 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.IntValue minerRangeBurner;
 		public final ForgeConfigSpec.IntValue minerRangeElectrical;
 		public final ForgeConfigSpec.IntValue minerRangeMechanical;
+		public final ForgeConfigSpec.IntValue minerSpeedCreative;
+		public final ForgeConfigSpec.IntValue minerSpeedBurner;
+		public final ForgeConfigSpec.IntValue minerSpeedElectrical;
+		public final ForgeConfigSpec.IntValue minerSpeedMechanical;
 		public final ForgeConfigSpec.IntValue fluidDepositAmount;
 		public final ForgeConfigSpec.BooleanValue silentMiners;
 		
@@ -104,6 +108,19 @@ public class ConfigHandler {
 			minerRangeMechanical = builder
 					.comment("The range that this type of miner will have when checking for mineable ores. (0 = 1x1, 1 = 3x3, 2 = 5x5, etc.)")
 					.defineInRange("minerRangeMechanical", 1, 0, 3);
+			
+			minerSpeedCreative = builder
+					.comment("The time this miner will take to complete one mining action. (20 = 1 second)")
+					.defineInRange("minerSpeedCreative", 200, 1, Integer.MAX_VALUE);
+			minerSpeedBurner = builder
+					.comment("The time this miner will take to complete one mining action. (20 = 1 second)")
+					.defineInRange("minerSpeedBurner", 200, 1, Integer.MAX_VALUE);
+			minerSpeedElectrical = builder
+					.comment("The time this miner will take to complete one mining action. (20 = 1 second)")
+					.defineInRange("minerSpeedElectrical", 200, 1, Integer.MAX_VALUE);
+			minerSpeedMechanical = builder
+					.comment("The time this miner will take to complete one mining action. (20 = 1 second, at a speed of 16)")
+					.defineInRange("minerSpeedMechanical", 200, 1, Integer.MAX_VALUE);
 			
 			fluidDepositAmount = builder
 					.comment("The amount in mb of fluid that is extracted in one mining action")

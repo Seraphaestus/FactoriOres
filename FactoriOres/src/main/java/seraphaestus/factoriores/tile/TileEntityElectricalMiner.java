@@ -102,6 +102,11 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 	}
 	
 	@Override
+	protected int getTotalMiningTime() {
+		return ConfigHandler.COMMON.minerSpeedElectrical.get();
+	}
+	
+	@Override
 	protected int getRange() {
 		return ConfigHandler.COMMON.minerRangeElectrical.get();
 	}

@@ -21,6 +21,11 @@ public class TileEntityCreativeMiner extends TileEntityMiner {
 	}
 	
 	@Override
+	protected int getTotalMiningTime() {
+		return ConfigHandler.COMMON.minerSpeedCreative.get();
+	}
+	
+	@Override
 	protected int getRange() {
 		return ConfigHandler.COMMON.minerRangeCreative.get();
 	}
