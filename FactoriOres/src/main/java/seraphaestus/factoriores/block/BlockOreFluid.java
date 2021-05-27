@@ -66,10 +66,6 @@ public class BlockOreFluid extends BlockOre {
 	public String getID() {
 		return name + "_deposit";
 	}
-	@Override
-	public String getDecoratorID() {
-		return getID() + "_fluid_deposit";
-	}
 	
 	@Override
 	public boolean requiresLixiviant() {

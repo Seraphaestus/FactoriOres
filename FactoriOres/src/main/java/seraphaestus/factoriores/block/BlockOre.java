@@ -97,9 +97,6 @@ public class BlockOre extends Block {
 	public String getOreName() {
 		return name.substring(0, 1).toUpperCase() + name.substring(1) + " Deposit";
 	}
-	public String getDecoratorID() {
-		return getID() + "_ore_deposit";
-	}
 	
 	public boolean requiresLixiviant() {
 		String registryName = this.getRegistryName().toString();

@@ -103,7 +103,7 @@ public class Registrar {
 	// -------- Worldgen features
 	
 	public static RegistryObject<Feature<FeatureConfigOreDeposit>> featureOreDeposit;
-	public static List<ConfiguredFeature<?, ?>> configuredOreDepositFeatures;
+	public static List<ConfiguredFeature<?, ?>> configuredFeaturesDeposits;
 	
 	// -------- Other
 	
@@ -126,8 +126,9 @@ public class Registrar {
 		registerItems();
 		registerFluids();
 		setupOreTypes();
-		registerOreBlocksTilesAndFeatures();
+		registerOres();
 		registerMiners();
+		registerFeatures();
 	}
 	
 	private static void registerItems() {
@@ -176,13 +177,9 @@ public class Registrar {
 		oreTemplates.add(new OreTemplate("oil", "immersivepetroleum:oil_bucket", GenDistance.DISABLED).setFluid());
 	}
 
-	private static void registerOreBlocksTilesAndFeatures() {
-		FeatureOreDeposit oreDeposit = new FeatureOreDeposit(FeatureConfigOreDeposit.CODEC);
-		featureOreDeposit = FEATURES.register("ore_deposit", () -> oreDeposit);
-		
+	private static void registerOres() {
 		oreDeposits = new ArrayList<BlockOre>();
 		fluidDeposits = new ArrayList<BlockOreFluid>();
-		configuredOreDepositFeatures = new ArrayList<ConfiguredFeature<?, ?>>();
 		
 		for (OreTemplate ore : oreTemplates) {
 			Properties properties = Properties.create(Material.ROCK);
@@ -197,7 +194,6 @@ public class Registrar {
 			}
 			
 			registerSimpleBlock(oreBlock.getID(), oreBlock);
-			registerOreFeature(oreBlock, ore, oreDeposit);
 		}
 		
 		tileOreDeposit = TILES.register("ore_deposit_tile", () -> TileEntityType.Builder.create(TileEntityOre::new, oreDeposits.toArray(new BlockOre[0])).build(null));
@@ -215,24 +211,45 @@ public class Registrar {
 		tileElectricalMiner = TILES.register("electrical_miner_tile", () -> TileEntityType.Builder.create(TileEntityElectricalMiner::new, blockElectricalMiner).build(null));
 	}
 	
-	private static void registerOreFeature(BlockOre oreBlock, OreTemplate oreTemplate, FeatureOreDeposit oreDeposit) {
-		//Placement configuration
+	private static void registerFeatures() {
+		FeatureOreDeposit oreDeposit = new FeatureOreDeposit(FeatureConfigOreDeposit.CODEC);
+		featureOreDeposit = FEATURES.register("ore_deposit", () -> oreDeposit);
+		
 		PlacementOreDeposit placementOreDeposit = new PlacementOreDeposit(PlacementConfigOreDeposit.CODEC);
+		DECORATORS.register("ore_deposit", () -> placementOreDeposit);
 		
-		//Register the placement decorator
-		DECORATORS.register(oreBlock.getDecoratorID(), () -> placementOreDeposit);
+		configuredFeaturesDeposits = new ArrayList<ConfiguredFeature<?, ?>>();
 		
-		//Feature configuration
-		FeatureConfigOreDeposit featureConfig = new FeatureConfigOreDeposit(oreBlock.getDefaultState(), oreTemplate.patchRadius, oreTemplate.patchDepth, oreTemplate.patchDensity);
-		PlacementConfigOreDeposit placementConfig = new PlacementConfigOreDeposit(oreTemplate.genRarity, oreTemplate.genDepth, oreTemplate.genDistance.toString());
+		for (OreTemplate template : oreTemplates) {
+			boolean breakFlag = false;
+			for (BlockOre oreBlock : oreDeposits) {
+				if (oreBlock.name == template.name) {
+					registerConfiguredFeatureOre(oreDeposit, placementOreDeposit, oreBlock, template);
+					breakFlag = true;
+					break;
+				}
+			}
+			if (breakFlag) continue;
+			for (BlockOre oreBlock : fluidDeposits) {
+				if (oreBlock.name == template.name) {
+					registerConfiguredFeatureOre(oreDeposit, placementOreDeposit, oreBlock, template);
+					break;
+				}
+			}
+		}
+	}
+	
+	private static void registerConfiguredFeatureOre(FeatureOreDeposit feature, PlacementOreDeposit decorator, BlockOre block, OreTemplate template) {
+		FeatureConfigOreDeposit featureConfig = new FeatureConfigOreDeposit(block.getDefaultState(), template.patchRadius, template.patchDepth, template.patchDensity);
+		PlacementConfigOreDeposit placementConfig = new PlacementConfigOreDeposit(template.genRarity, template.genDepth, template.genDistance.toString());
 		
-		final ConfiguredFeature<?, ?> configuredFeatureOreDeposit = oreDeposit
+		final ConfiguredFeature<?, ?> configuredFeature = feature
 				.configure(featureConfig)
-				.decorate(placementOreDeposit.configure(placementConfig));
+				.decorate(decorator.configure(placementConfig));
 		
 		//Register the feature
-		configuredOreDepositFeatures.add(configuredFeatureOreDeposit);
-		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FactoriOres.MOD_ID, oreBlock.getID() + "_ore_deposit"), configuredFeatureOreDeposit);
+		configuredFeaturesDeposits.add(configuredFeature);
+		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FactoriOres.MOD_ID, block.name + "_deposit"), configuredFeature);
 	}
 	
 	private static void registerSimpleBlock(String id, Block block) {

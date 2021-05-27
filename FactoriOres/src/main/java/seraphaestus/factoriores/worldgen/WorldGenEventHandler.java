@@ -15,7 +15,7 @@ public class WorldGenEventHandler {
 	public static void onBiomeLoad(final BiomeLoadingEvent event) {
 		if (!ConfigHandler.COMMON.worldgenEnabled.get()) return;
 		
-		for (ConfiguredFeature<?, ?> configuredFeatureOreDeposit : Registrar.configuredOreDepositFeatures) {
+		for (ConfiguredFeature<?, ?> configuredFeatureOreDeposit : Registrar.configuredFeaturesDeposits) {
 			event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> configuredFeatureOreDeposit);
 		}
 	}
