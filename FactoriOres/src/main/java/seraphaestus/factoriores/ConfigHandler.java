@@ -125,7 +125,7 @@ public class ConfigHandler {
 			
 			burnerFuelRate = builder
 					.comment("A modifier to the rate at which fuel lasts in the burner miner. (e.g. 2 = fuel lasts 2x as long)")
-					.defineInRange("burnerFuelRate", 3, 0, Double.MAX_VALUE);
+					.defineInRange("burnerFuelRate", 1, 0, Double.MAX_VALUE);
 			fluidDepositAmount = builder
 					.comment("The amount in mb of fluid that is extracted in one mining action")
 					.defineInRange("fluidDepositAmount", 1000, 1, Integer.MAX_VALUE);

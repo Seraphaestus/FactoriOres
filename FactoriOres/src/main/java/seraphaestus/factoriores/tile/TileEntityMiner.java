@@ -29,7 +29,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import seraphaestus.factoriores.ConfigHandler;
-import seraphaestus.factoriores.FactoriOres;
 import seraphaestus.factoriores.Registrar;
 import seraphaestus.factoriores.block.BlockMiner;
 import seraphaestus.factoriores.block.BlockOre;
@@ -40,7 +39,6 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 
 	public InventoryMiner items;
 	protected static final int OUTPUT_SLOT = 0;
-	protected static int NUM_SLOTS;
 	protected StateDataMiner minerStateData;
 
 	public TileEntityMiner(TileEntityType<? extends TileEntityMiner> type) {
@@ -49,11 +47,9 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 	}
 
 	protected void init() {
-		NUM_SLOTS = 1;
-		items = InventoryMiner.createForTileEntity(NUM_SLOTS, this::canPlayerAccessInventory, this::markDirty);
+		items = InventoryMiner.createForTileEntity(numSlots(), this::canPlayerAccessInventory, this::markDirty);
 		minerStateData = new StateDataMiner();
 		minerStateData.miningTotalTime = getTotalMiningTime();
-		//itemHandlerLazy = LazyOptional.of(() -> new InvWrapper(items));
 		handlers = SidedInvWrapper.create(items, Direction.UP);
 	}
 
@@ -244,6 +240,10 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 	protected int getRange() {
 		return 0;	// 0 = 1x1, 1 = 3x3, 2 = 5x5, etc.
 	}
+	
+	protected int numSlots() {
+		return 1;
+	}
 
 	public ItemStack retrieveItems() {
 		markDirty();
@@ -323,8 +323,7 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 		CompoundNBT inventoryNBT = nbtTagCompound.getCompound("items");
 		items.deserializeNBT(inventoryNBT);
 
-		if (items.getSizeInventory() != NUM_SLOTS) {
-			FactoriOres.LOGGER.debug(this.getClass());
+		if (items.getSizeInventory() != numSlots()) {
 			throw new IllegalArgumentException("Corrupted NBT: Number of inventory slots did not match expected.");
 		}
 	}

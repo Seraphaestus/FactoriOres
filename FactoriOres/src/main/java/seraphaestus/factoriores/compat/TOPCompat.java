@@ -35,11 +35,11 @@ public class TOPCompat implements Function<ITheOneProbe, Void> {
 	
     @Override
     public Void apply(@Nonnull ITheOneProbe iTheOneProbe) {
-        iTheOneProbe.registerProvider(new FluxDeviceInfoProvider());
+        iTheOneProbe.registerProvider(new OreDepositInfoProvider());
         return null;
     }
 
-    public static class FluxDeviceInfoProvider implements IProbeInfoProvider {
+    public static class OreDepositInfoProvider implements IProbeInfoProvider {
 
         @Override
         public String getID() {

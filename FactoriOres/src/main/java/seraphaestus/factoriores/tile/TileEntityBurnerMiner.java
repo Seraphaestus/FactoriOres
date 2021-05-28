@@ -20,11 +20,9 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 
 	@Override
 	public void init() {
-		NUM_SLOTS = 2;
-		items = InventoryBurnerMiner.createForTileEntity(NUM_SLOTS, this::canPlayerAccessInventory, this::markDirty);
+		items = InventoryBurnerMiner.createForTileEntity(numSlots(), this::canPlayerAccessInventory, this::markDirty);
 		minerStateData = new StateDataBurnerMiner();
 		minerStateData.miningTotalTime = getTotalMiningTime();
-		//itemHandlerLazy = LazyOptional.of(() -> new InvWrapper((InventoryBurnerMiner)items));
 		handlers = SidedInvWrapper.create(items, Direction.UP);
 	}
 
@@ -40,7 +38,7 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 		
 		if (!world.isRemote) {
 			hasChanged = doMining() ? true : hasChanged;
-			if (stateData.fuelBurnProgress == stateData.fuelBurnTotalTime) {
+			if (stateData.fuelBurnProgress > stateData.fuelBurnTotalTime) {
 				stateData.fuelBurnProgress = 0;
 				if (canKickstart()) doKickstart();
 			}
@@ -105,7 +103,10 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 	protected int getRange() {
 		return ConfigHandler.COMMON.minerRangeBurner.get();
 	}
-
-
+	
+	@Override
+	protected int numSlots() {
+		return 2;
+	}
 
 }
