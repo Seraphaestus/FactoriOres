@@ -40,6 +40,7 @@ import seraphaestus.factoriores.data.OreTemplate;
 import seraphaestus.factoriores.fluid.FluidBlockSulfuricAcid;
 import seraphaestus.factoriores.fluid.FluidSulfuricAcid;
 import seraphaestus.factoriores.item.BlockItemMiner;
+import seraphaestus.factoriores.item.ItemFuel;
 import seraphaestus.factoriores.tile.TileEntityBurnerMiner;
 import seraphaestus.factoriores.tile.TileEntityCreativeMiner;
 import seraphaestus.factoriores.tile.TileEntityElectricalMiner;
@@ -79,6 +80,10 @@ public class Registrar {
     public static RegistryObject<FluidSulfuricAcid.Flowing> flowingSulfuricAcid;
 	public static RegistryObject<BucketItem> sulfuricAcidBucket;
 	public static RegistryObject<Block> blockSulfuricAcid;
+	
+	// -------- Items
+	
+	public static final ItemFuel coalNugget = new ItemFuel(new Item.Properties().maxStackSize(64).group(StartupCommon.ITEM_GROUP));
 	
 	// -------- Simple blocks
 	
@@ -137,6 +142,7 @@ public class Registrar {
 		if (ConfigHandler.COMMON.sulfurEnabled.get()) {
 			ITEMS.register("sulfur_dust", () -> new Item((new Item.Properties()).group(StartupCommon.ITEM_GROUP)));
 		}
+		ITEMS.register("coal_nugget", () -> coalNugget);
 	}
 	
 	private static void registerFluids() {
