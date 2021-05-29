@@ -1,6 +1,5 @@
 package seraphaestus.factoriores;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -22,7 +21,7 @@ public class StartupCommon {
 	public static ItemGroup ITEM_GROUP = new ItemGroup(FactoriOres.MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(Blocks.COAL_ORE);
+            return new ItemStack(Registrar.drillHead);
         }
     };
 	

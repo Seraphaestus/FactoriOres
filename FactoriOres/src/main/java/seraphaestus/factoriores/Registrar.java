@@ -83,6 +83,7 @@ public class Registrar {
 	
 	// -------- Items
 	
+	public static final Item drillHead = new Item((new Item.Properties()).group(StartupCommon.ITEM_GROUP));
 	public static final ItemFuel coalNugget = new ItemFuel(new Item.Properties().maxStackSize(64).group(StartupCommon.ITEM_GROUP));
 	
 	// -------- Simple blocks
@@ -138,7 +139,7 @@ public class Registrar {
 	}
 	
 	private static void registerItems() {
-		ITEMS.register("drill_head", () -> new Item((new Item.Properties()).group(StartupCommon.ITEM_GROUP)));
+		ITEMS.register("drill_head", () -> drillHead);
 		if (ConfigHandler.COMMON.sulfurEnabled.get()) {
 			ITEMS.register("sulfur_dust", () -> new Item((new Item.Properties()).group(StartupCommon.ITEM_GROUP)));
 		}
