@@ -1,3 +1,9 @@
 {
-  "parent": "factoriores:block/burner_miner"
+	"parent":"factoriores:item/miner",
+	"textures": {
+        "side": "factoriores:block/burner_miner_side",
+        "bottom": "factoriores:block/burner_miner_bottom",
+        "top": "factoriores:block/burner_miner_top",
+        "parts": "factoriores:block/burner_miner_parts"
+    }
 }
