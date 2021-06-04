@@ -12,12 +12,15 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.IModelData;
 import seraphaestus.factoriores.ConfigHandler;
 import seraphaestus.factoriores.block.BlockMiner;
 import seraphaestus.factoriores.event.ClientTickHandler;
 import seraphaestus.factoriores.tile.TileEntityMiner;
+import seraphaestus.factoriores.tile.TileEntityOre;
 
 public class RendererMiner extends TileEntityRenderer<TileEntityMiner> {
 
@@ -54,5 +57,26 @@ public class RendererMiner extends TileEntityRenderer<TileEntityMiner> {
 						state,
 						drillHead, 1, 1, 1, light, overlay, data);
 		matrixStack.pop();
+		
+		if (RenderHelper.isLookingAt(tileEntity.getPos())) {
+			renderRange(tileEntity, tileEntity.getRange(), matrixStack, bufferIn, light, overlay);
+		}
+	}
+	
+	public static void renderRange(@Nonnull TileEntity tileEntity, int range, MatrixStack matrixStack, IRenderTypeBuffer buffer, int light, int overlay) {
+		final double y = -1.99d;
+		final BlockPos pos = tileEntity.getPos();
+		for (int x = -range; x <= range; x++) {
+			for (int z = -range; z <= range; z++) {
+				TileEntity te = tileEntity.getWorld().getTileEntity(pos.add(x, y, z));
+				if (!(te instanceof TileEntityOre)) continue;
+				
+				matrixStack.push();
+				matrixStack.translate(x, y, z);
+
+				RenderHelper.drawUpHighlight(matrixStack, buffer, RenderHelper.highlightColor, light);
+				matrixStack.pop();
+			}
+		}
 	}
 }

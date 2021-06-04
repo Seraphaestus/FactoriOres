@@ -19,6 +19,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.IModelData;
 import seraphaestus.factoriores.ConfigHandler;
 import seraphaestus.factoriores.block.BlockMechanicalMiner;
+import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
 
 public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 
@@ -66,6 +67,10 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 						state,
 						drillHead, 1, 1, 1, light, overlay, data);
 		matrixStack.pop();
+		
+		if (RenderHelper.isLookingAt(tileEntity.getPos())) {
+			RendererMiner.renderRange(tileEntity, ((TileEntityMechanicalMiner)tileEntity).getRange(), matrixStack, bufferIn, light, overlay);
+		}
 	}
 	
 }

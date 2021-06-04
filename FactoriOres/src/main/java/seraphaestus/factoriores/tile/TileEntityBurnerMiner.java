@@ -100,7 +100,7 @@ public class TileEntityBurnerMiner extends TileEntityMiner {
 	}
 	
 	@Override
-	protected int getRange() {
+	public int getRange() {
 		return ConfigHandler.COMMON.minerRangeBurner.get();
 	}
 	

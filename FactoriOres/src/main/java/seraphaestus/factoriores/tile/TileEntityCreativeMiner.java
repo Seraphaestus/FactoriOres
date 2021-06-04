@@ -26,7 +26,7 @@ public class TileEntityCreativeMiner extends TileEntityMiner {
 	}
 	
 	@Override
-	protected int getRange() {
+	public int getRange() {
 		return ConfigHandler.COMMON.minerRangeCreative.get();
 	}
 

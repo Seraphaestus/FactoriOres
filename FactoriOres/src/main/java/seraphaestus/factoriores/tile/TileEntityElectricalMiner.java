@@ -107,7 +107,7 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 	}
 	
 	@Override
-	protected int getRange() {
+	public int getRange() {
 		return ConfigHandler.COMMON.minerRangeElectrical.get();
 	}
 

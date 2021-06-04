@@ -237,7 +237,7 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 
 	protected abstract int getTotalMiningTime();
 	
-	protected int getRange() {
+	public int getRange() {
 		return 0;	// 0 = 1x1, 1 = 3x3, 2 = 5x5, etc.
 	}
 	
