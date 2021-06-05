@@ -26,6 +26,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import seraphaestus.factoriores.ConfigHandler;
@@ -330,14 +331,12 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 
 	// -------- Expose for automation
 
-	//LazyOptional<IItemHandler> itemHandlerLazy;
 	LazyOptional<? extends IItemHandler>[] handlers;
 	
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		// return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, itemHandlerLazy);
-		if (!this.removed && side != null && cap == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (!this.removed && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return handlers[0].cast();
 		}
 		return super.getCapability(cap, side);
@@ -346,7 +345,6 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 	@Override
 	public void remove() {
 	  super.remove();
-	  //itemHandlerLazy.invalidate();
 	  for (int x = 0; x < handlers.length; x++)
 	        handlers[x].invalidate();
 	}

@@ -37,7 +37,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import seraphaestus.factoriores.ConfigHandler;
 import seraphaestus.factoriores.FactoriOres;
 import seraphaestus.factoriores.Registrar;
@@ -66,7 +66,7 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 		items = InventoryMiner.createForTileEntity(NUM_SLOTS, this::canPlayerAccessInventory, this::markDirty);
 		minerStateData = new StateDataMiner();
 		minerStateData.miningTotalTime = getTotalMiningTime();
-		itemHandlerLazy = LazyOptional.of(() -> new InvWrapper(items));
+		handlers = SidedInvWrapper.create(items, Direction.UP);
 	}
 	
 	public boolean canPlayerAccessInventory(PlayerEntity player) {
@@ -395,18 +395,22 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 
 	// -------- Expose for automation
 
-	LazyOptional<IItemHandler> itemHandlerLazy;
+	LazyOptional<? extends IItemHandler>[] handlers;
 	
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, itemHandlerLazy);
+		if (!this.removed && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return handlers[0].cast();
+		}
+		return super.getCapability(cap, side);
 	}
-	
+
 	@Override
 	public void remove() {
 	  super.remove();
-	  itemHandlerLazy.invalidate();
+	  for (int x = 0; x < handlers.length; x++)
+	        handlers[x].invalidate();
 	}
 
 }

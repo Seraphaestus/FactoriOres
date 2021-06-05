@@ -64,6 +64,16 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 		return ENERGY_PER_COMPLETED_MINE / minerStateData.miningTotalTime;
 	}
 	
+	@Override
+	protected int getTotalMiningTime() {
+		return ConfigHandler.COMMON.minerSpeedElectrical.get();
+	}
+	
+	@Override
+	public int getRange() {
+		return ConfigHandler.COMMON.minerRangeElectrical.get();
+	}
+	
 	// -------- Data (NBT & Packets) methods
 
 	@Override
@@ -81,7 +91,7 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 		
 		energy.read(nbtTagCompound);
 	}
-
+	
 	// -------- Expose for automation
 	
 	LazyOptional<IEnergyStorage> energyHandlerLazy;
@@ -99,16 +109,6 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 	public void remove() {
 	  super.remove();
 	  energyHandlerLazy.invalidate();
-	}
-	
-	@Override
-	protected int getTotalMiningTime() {
-		return ConfigHandler.COMMON.minerSpeedElectrical.get();
-	}
-	
-	@Override
-	public int getRange() {
-		return ConfigHandler.COMMON.minerRangeElectrical.get();
 	}
 
 }
