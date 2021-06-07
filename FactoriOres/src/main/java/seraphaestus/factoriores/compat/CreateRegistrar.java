@@ -31,12 +31,12 @@ public class CreateRegistrar {
 	
 	// -------- Register
 	
-	public static NonNullLazyValue<CreateRegistrate> createRegistrate = CreateRegistrate.lazy(FactoriOres.MOD_ID);
+	public static final NonNullLazyValue<CreateRegistrate> createRegistrate = CreateRegistrate.lazy(FactoriOres.MOD_ID);
+	private static final CreateRegistrate subRegistrate = createRegistrate.get().itemGroup(() -> StartupCommon.ITEM_GROUP);
 	
 	// -------- Blocks with tile entities
 	
-	public static BlockEntry<BlockMechanicalMiner> blockMechanicalMiner = createRegistrate.get()
-			.itemGroup(() -> StartupCommon.ITEM_GROUP)
+	public static BlockEntry<BlockMechanicalMiner> blockMechanicalMiner = subRegistrate
 			.block("mechanical_miner", BlockMechanicalMiner::new)
 				.initialProperties(SharedProperties::softMetal)
 				.properties(AbstractBlock.Properties::nonOpaque)
@@ -46,8 +46,7 @@ public class CreateRegistrar {
 				.item(BlockItemMiner::new)
 				.transform(customItemModel())
 				.register();
-	public static TileEntityEntry<TileEntityMechanicalMiner> tileMechanicalMiner = createRegistrate.get()
-			.itemGroup(() -> StartupCommon.ITEM_GROUP)
+	public static TileEntityEntry<TileEntityMechanicalMiner> tileMechanicalMiner = subRegistrate
 			.tileEntity("mechanical_miner_tile", TileEntityMechanicalMiner::new)
 				.instance(() -> InstanceMinerCog::new)
 				.validBlocks(blockMechanicalMiner)
