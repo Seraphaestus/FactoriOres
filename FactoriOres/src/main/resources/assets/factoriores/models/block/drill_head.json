@@ -1,7 +1,6 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/) and based off Create's Mechanical Drill",
-   	"parent": "block:block",
-	"textures": {
+   	"textures": {
 		"base": "block/polished_andesite",
 		"head": "block/anvil"
     },
