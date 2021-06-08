@@ -5,8 +5,8 @@ import seraphaestus.factoriores.worldgen.PlacementConfigOreDeposit.GenDistance;
 public class OreTemplate {
 	public String name;
 	public String drop;
-	public int patchRadius = 0;
-	public int patchDepth = 0;
+	public int patchRadius = 16;
+	public int patchDepth = 4;
 	public int patchDensity = 16;
 	public int genRarity = 40;
 	public int genDepth = 8;
