@@ -1,6 +1,7 @@
 package seraphaestus.factoriores;
 
 import net.minecraftforge.eventbus.api.IEventBus;
+import seraphaestus.factoriores.event.ClientTooltipHandler;
 
 /*
 This class is required to make sure that we don't accidentally try to load any client-side-only classes
@@ -16,5 +17,7 @@ public class ClientModEventRegistrar {
 
     public void registerClientOnlyEvents() {
         eventBus.register(seraphaestus.factoriores.StartupClient.class);
+        
+        if (FactoriOres.CREATE_ACTIVE) eventBus.register(ClientTooltipHandler.class);
     }
 }
