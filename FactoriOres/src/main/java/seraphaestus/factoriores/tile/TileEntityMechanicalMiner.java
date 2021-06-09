@@ -143,10 +143,11 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 		if (selectedOre == null) return;
 		if (selectedOre instanceof TileEntityOreFluid && tankUnavailable()) return;
 		
-		Object oreStack = selectedOre.decrement(this);
+		Object oreStack = selectedOre.peek(this);
 		if (oreStack instanceof ItemStack) {
 			ItemStack oreItem = (ItemStack)oreStack;
 			if (oreItem.isEmpty()) return;
+			selectedOre.decrement(this);
 			ItemStack outputSlot = items.getStackInSlot(OUTPUT_SLOT);
 			if (outputSlot.isEmpty()) {
 				items.setInventorySlotContents(OUTPUT_SLOT, oreItem.copy());
@@ -158,7 +159,11 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 			if (fluidStack.isEmpty()) return;
 			IFluidHandler tank = getTank();
 			if (tank != null) {
-				tank.fill(fluidStack, FluidAction.EXECUTE);
+				int overflow = fluidStack.getAmount() - tank.fill(fluidStack, FluidAction.SIMULATE);
+				if (overflow <= 0) {
+					selectedOre.decrement(this);
+					tank.fill(fluidStack, FluidAction.EXECUTE);
+				}
 			}
 		}
 	}

@@ -114,9 +114,10 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 		if (selectedOre == null) return;
 		if (selectedOre instanceof TileEntityOreFluid && tankUnavailable()) return;
 		
-		Object oreStack = selectedOre.decrement(this);
+		Object oreStack = selectedOre.peek(this);
 		if (oreStack instanceof ItemStack) {
 			ItemStack oreItem = (ItemStack)oreStack;
+			selectedOre.decrement(this);
 			if (oreItem.isEmpty()) return;
 			ItemStack outputSlot = items.getStackInSlot(OUTPUT_SLOT);
 			if (outputSlot.isEmpty()) {
@@ -129,7 +130,11 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 			if (fluidStack.isEmpty()) return;
 			IFluidHandler tank = getTank();
 			if (tank != null) {
-				tank.fill(fluidStack, FluidAction.EXECUTE);
+				int overflow = fluidStack.getAmount() - tank.fill(fluidStack, FluidAction.SIMULATE);
+				if (overflow <= 0) {
+					selectedOre.decrement(this);
+					tank.fill(fluidStack, FluidAction.EXECUTE);
+				}
 			}
 		}
 	}

@@ -71,6 +71,10 @@ public class TileEntityOre extends TileEntityBase {
 		}
 		return getDrop(state, world, pos, tile);
 	}
+	public Object peek(@Nullable TileEntity tile) {
+		BlockState state = world.getBlockState(pos);
+		return getDrop(state, world, pos, tile);
+	}
 	
 	protected Object getDrop(BlockState state, World world, BlockPos pos, @Nullable TileEntity tile) {
 		ServerWorld serverWorld = world.isRemote ? world.getServer().getWorld(world.getRegistryKey()) : (ServerWorld)world;
