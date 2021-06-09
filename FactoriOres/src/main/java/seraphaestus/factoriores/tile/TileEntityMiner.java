@@ -17,9 +17,12 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -311,6 +314,15 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 		IFluidHandler tank = getTankWithLixiviant();
 		if (tank == null) return;
 		tank.drain(progressMade, FluidAction.EXECUTE);
+	}
+	
+	// -------- Client methods
+	
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public AxisAlignedBB getRenderBoundingBox() {
+		BlockPos pos = getTileEntity().getPos();
+		return new AxisAlignedBB(pos.add(0, -1, 0), pos.add(1, 1, 1));
 	}
 
 	// -------- Data (NBT & Packets) methods

@@ -17,14 +17,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,12 +37,6 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 		super(properties.hardnessAndResistance(3.5F, 3.5F).requiresTool().nonOpaque());
 		this.setDefaultState(this.stateContainer.getBaseState()
 				.with(ENABLED, false));
-	}
-	
-	public static final VoxelShape DOUBLE_CUBE_TOP = VoxelShapes.create(new AxisAlignedBB(0, -1, 0, 1, 1, 1));
-	@Override
-	public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
-		return DOUBLE_CUBE_TOP;
 	}
 	
 	// -------- State/Property management
