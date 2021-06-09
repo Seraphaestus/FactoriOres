@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import seraphaestus.factoriores.ConfigHandler;
+import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
 import seraphaestus.factoriores.tile.TileEntityMiner;
 import seraphaestus.factoriores.util.VecHelper;
 
@@ -66,11 +67,13 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult rayTraceResult) {
-		if (world.isRemote)
-			return ActionResultType.SUCCESS; // on client side, don't do anything
-
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+		
+		// cancel if behaviour requires an empty hand and the player's main hand is not empty
+		if (ConfigHandler.COMMON.requireEmptyHand.get() && !player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
+		
+		if (world.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+		
 		TileEntity tileentity = world.getTileEntity(pos);
 		if (tileentity instanceof TileEntityMiner) {
 			TileEntityMiner tileEntityMiner = (TileEntityMiner) tileentity;
@@ -82,7 +85,24 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+		if (!ConfigHandler.COMMON.canPlaceAdjacent.get()) {
+			if (adjacentToMiners(state, world, pos)) return false;
+		}
+		
 		return world.getBlockState(pos.down().down()).getBlock() instanceof BlockOre;
+	}
+	
+	public static boolean adjacentToMiners(BlockState state, IWorldReader world, BlockPos pos) {
+		for (int x = -1; x <= 1; x++) {
+			for (int z = -1; z <= 1; z++) {
+				if (x == 0 && z == 0) continue;
+				TileEntity check = world.getTileEntity(pos.add(x, 0, z));
+				if (check == null) continue;
+				if (check instanceof TileEntityMiner || check instanceof TileEntityMechanicalMiner) 
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	// -------- Client-side effects

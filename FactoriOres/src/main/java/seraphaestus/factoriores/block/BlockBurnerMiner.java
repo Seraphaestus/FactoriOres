@@ -61,10 +61,12 @@ public class BlockBurnerMiner extends BlockMiner {
 	// -------- Events
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult rayTraceResult) {
-		if (world.isRemote)
-			return ActionResultType.SUCCESS; // on client side, don't do anything
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+		
+		boolean emptyHandFlag = ConfigHandler.COMMON.requireEmptyHand.get() && !player.getHeldItem(hand).isEmpty();
+		
+		// on client side, don't do anything
+		if (world.isRemote) return emptyHandFlag ? ActionResultType.PASS : ActionResultType.SUCCESS;
 
 		TileEntity tileentity = world.getTileEntity(pos);
 		if (tileentity instanceof TileEntityBurnerMiner) {
@@ -75,6 +77,7 @@ public class BlockBurnerMiner extends BlockMiner {
 				boolean success = tileEntityMiner.addFuel(new ItemStack(heldItem.getItem(), 1));
 				if (success && !player.abilities.isCreativeMode) heldItem.shrink(1);
 			} else {
+				if (emptyHandFlag) return ActionResultType.PASS;
 				// retrieve products from the miner
 				player.addItemStackToInventory(tileEntityMiner.retrieveItems());
 			}

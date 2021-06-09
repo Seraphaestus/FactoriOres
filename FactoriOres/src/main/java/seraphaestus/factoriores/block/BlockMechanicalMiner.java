@@ -88,11 +88,13 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-			BlockRayTraceResult rayTraceResult) {
-		if (world.isRemote)
-			return ActionResultType.SUCCESS; // on client side, don't do anything
-
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+		
+		// cancel if behaviour requires an empty hand and the player's main hand is not empty
+		if (ConfigHandler.COMMON.requireEmptyHand.get() && !player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
+		
+		if (world.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
+		
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem.isItemEqual(com.simibubi.create.AllBlocks.COGWHEEL.asStack()) ||
 				heldItem.isItemEqual(com.simibubi.create.AllBlocks.LARGE_COGWHEEL.asStack()) ||
@@ -112,6 +114,10 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+		if (!ConfigHandler.COMMON.canPlaceAdjacent.get()) {
+			if (BlockMiner.adjacentToMiners(state, world, pos)) return false;
+		}
+		
 		return world.getBlockState(pos.down().down()).getBlock() instanceof BlockOre;
 	}
 	

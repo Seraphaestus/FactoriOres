@@ -69,6 +69,8 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.DoubleValue burnerFuelRate;
 		public final ForgeConfigSpec.IntValue fluidDepositAmount;
 		public final ForgeConfigSpec.BooleanValue silentMiners;
+		public final ForgeConfigSpec.BooleanValue canPlaceAdjacent;
+		public final ForgeConfigSpec.BooleanValue requireEmptyHand;
 		
 		public final ForgeConfigSpec.BooleanValue worldgenEnabled;
 		public final ForgeConfigSpec.IntValue genDistanceNear;
@@ -134,6 +136,14 @@ public class ConfigHandler {
 			silentMiners = builder
 					.comment("Set this to true to disable the burner miner furnace sound")
 					.define("silent", false);
+			
+			canPlaceAdjacent = builder
+					.comment("Set this to true to allow miners to be placed within the 3x3 range of another miner (results in legs clipping)")
+					.define("canPlaceAdjacent", false);
+			
+			requireEmptyHand = builder
+					.comment("Set this to true if players should only get miner outputs when they right-click with an empty hand")
+					.define("requireEmptyHand", true);
 			builder.pop();
 			
 			builder.push("worldgen");
