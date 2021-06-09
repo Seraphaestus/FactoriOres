@@ -29,6 +29,11 @@ public class RendererMiner extends TileEntityRenderer<TileEntityMiner> {
 	public RendererMiner(TileEntityRendererDispatcher dispatcher) {
 		super(dispatcher);
 	}
+	
+	@Override
+	public boolean isGlobalRenderer(TileEntityMiner tileEntity) {
+		return true;
+	}
 
 	@Override
 	public void render(@Nonnull TileEntityMiner tileEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int light, int overlay) {
