@@ -23,8 +23,10 @@ public class BlockOre extends Block {
 	public int amountMax;
 	public String name;
 
+	final static float hardness = ConfigHandler.COMMON.oreHardness.get().floatValue();
+
 	public BlockOre(String name, Properties properties, int amountMin, int amountMax) {
-		super(properties.hardnessAndResistance(30.0F, 1.0F).requiresTool());
+		super(properties.hardnessAndResistance(hardness, 1.0F).requiresTool());
 		this.name = name;
 		this.amountMin = (amountMin <= 0 && amountMin != TileEntityOre.AMOUNT_DUMMY) ? TileEntityOre.AMOUNT_INFINITE : amountMin;
 		this.amountMax = Math.max(this.amountMin, amountMax);

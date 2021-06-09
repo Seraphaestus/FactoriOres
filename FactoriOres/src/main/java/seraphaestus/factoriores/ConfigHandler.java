@@ -79,6 +79,7 @@ public class ConfigHandler {
 		public final ForgeConfigSpec.DoubleValue genChanceModMid;
 		public final ForgeConfigSpec.DoubleValue genChanceModFar;
 		
+		public final ForgeConfigSpec.DoubleValue oreHardness;
 		public final ForgeConfigSpec.IntValue oreAmountMin;
 		public final ForgeConfigSpec.IntValue oreAmountMax;
 		public final ForgeConfigSpec.IntValue fluidAmountMin;
@@ -165,6 +166,9 @@ public class ConfigHandler {
 			builder.pop();
 			
 			builder.push("ores");
+			oreHardness = builder
+					.comment("The hardness value of ore deposit blocks, which determines how fast it is to mine by hand. 0 = instant, 50 = obsidian, -1 = bedrock")
+					.defineInRange("oreHardness", 30d, -1, 100);
 			oreAmountMin = builder
 					.comment("The minimum amount that an ore deposit block will generate with. Set to " + TileEntityOre.AMOUNT_INFINITE + " for infinite.")
 					.defineInRange("oreAmountMin", 10, -1, Integer.MAX_VALUE);
