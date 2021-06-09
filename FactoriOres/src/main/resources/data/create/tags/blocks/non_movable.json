@@ -1,0 +1,25 @@
+{
+	"replace": false,
+	"values": [
+		"factoriores:aluminum_ore",
+		"factoriores:coal_ore",
+		"factoriores:copper_ore",
+		"factoriores:diamond_ore",
+		"factoriores:emerald_ore",
+		"factoriores:gold_ore",
+		"factoriores:iron_ore",
+		"factoriores:lapis_ore",
+		"factoriores:lava_deposit",
+		"factoriores:lead_ore",
+		"factoriores:nickel_ore",
+		"factoriores:oil_deposit",
+		"factoriores:quartz_ore",
+		"factoriores:redstone_ore",
+		"factoriores:silver_ore",
+		"factoriores:stone_ore",
+		"factoriores:sulfur_ore",
+		"factoriores:uranium_ore",
+		"factoriores:water_deposit",
+		"factoriores:zinc_ore"
+	]
+}
