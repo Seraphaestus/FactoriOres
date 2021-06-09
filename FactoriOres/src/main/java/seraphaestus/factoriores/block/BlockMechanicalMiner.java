@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
@@ -95,21 +94,13 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 		
 		if (world.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
 		
-		ItemStack heldItem = player.getHeldItem(hand);
-		if (heldItem.isItemEqual(com.simibubi.create.AllBlocks.COGWHEEL.asStack()) ||
-				heldItem.isItemEqual(com.simibubi.create.AllBlocks.LARGE_COGWHEEL.asStack()) ||
-				heldItem.isItemEqual(com.simibubi.create.AllBlocks.MECHANICAL_ARM.asStack())) {
-			//break from this function so cogwheels can be placed against the miner
-			return ActionResultType.PASS;
-		}
 		TileEntity tileentity = world.getTileEntity(pos);
 		if (tileentity instanceof TileEntityMechanicalMiner) {
 			TileEntityMechanicalMiner tileEntityMiner = (TileEntityMechanicalMiner) tileentity;
 			player.addItemStackToInventory(tileEntityMiner.retrieveItems());
-			return ActionResultType.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override
