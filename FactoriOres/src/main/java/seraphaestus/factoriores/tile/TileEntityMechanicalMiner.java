@@ -140,6 +140,7 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 	
 	protected void mineBlock() {
 		TileEntityOre selectedOre = selectOreFromInRange();
+		if (selectedOre == null) return;
 		if (selectedOre instanceof TileEntityOreFluid && tankUnavailable()) return;
 		
 		Object oreStack = selectedOre.decrement(this);
@@ -191,6 +192,9 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 				if (teOre.amount == maxAmount) candidateOres.add(pos);
 			}
 		}
+		
+		if (candidateOres.isEmpty()) return null;
+		
 		//select from candidate list
 			//remove the oreBelow IF it's one of our candidates and it's not the only one (this ensures the oreBelow will be depleted last)
 		if (candidateOres.contains(oreBelow) && candidateOres.size() > 1) {

@@ -111,6 +111,7 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 	
 	protected void mineBlock() {
 		TileEntityOre selectedOre = selectOreFromInRange();
+		if (selectedOre == null) return;
 		if (selectedOre instanceof TileEntityOreFluid && tankUnavailable()) return;
 		
 		Object oreStack = selectedOre.decrement(this);
@@ -162,6 +163,9 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 				if (teOre.amount == maxAmount) candidateOres.add(pos);
 			}
 		}
+		
+		if (candidateOres.isEmpty()) return null;
+		
 		//select from candidate list
 			//remove the oreBelow IF it's one of our candidates and it's not the only one (this ensures the oreBelow will be depleted last)
 		if (candidateOres.contains(oreBelow) && candidateOres.size() > 1) {
