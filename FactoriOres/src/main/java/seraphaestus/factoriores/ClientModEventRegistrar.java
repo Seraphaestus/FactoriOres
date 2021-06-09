@@ -1,5 +1,6 @@
 package seraphaestus.factoriores;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import seraphaestus.factoriores.event.ClientTooltipHandler;
 
@@ -18,6 +19,6 @@ public class ClientModEventRegistrar {
     public void registerClientOnlyEvents() {
         eventBus.register(seraphaestus.factoriores.StartupClient.class);
         
-        if (FactoriOres.CREATE_ACTIVE) eventBus.register(ClientTooltipHandler.class);
+        if (FactoriOres.CREATE_ACTIVE) MinecraftForge.EVENT_BUS.register(ClientTooltipHandler.class);
     }
 }
