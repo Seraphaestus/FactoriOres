@@ -96,8 +96,8 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 	@Override
 	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
 		
-		// cancel if behaviour requires an empty hand and the player's main hand is not empty
-		if (ConfigHandler.COMMON.requireEmptyHand.get() && !player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
+		// cancel if the player's main hand is not empty
+		if (!player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
 		
 		if (world.isRemote) return ActionResultType.SUCCESS; // on client side, don't do anything
 		
