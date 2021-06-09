@@ -21,15 +21,17 @@ public class FactoriOres {
 	
 	public static volatile boolean configLoaded = false;
 	
-	public static boolean IE_ACTIVE = false;
     public static boolean CREATE_ACTIVE = false;
+    public static boolean IE_ACTIVE = false;
+    public static boolean IP_ACTIVE = false;
     
     public FactoriOres() {
     	final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	final ClientModEventRegistrar clientModEventRegistrar = new ClientModEventRegistrar(modEventBus);
     	
-    	IE_ACTIVE = ModList.get().isLoaded("immersiveengineering");
     	CREATE_ACTIVE = ModList.get().isLoaded("create");
+    	IE_ACTIVE = ModList.get().isLoaded("immersiveengineering");
+    	IP_ACTIVE = ModList.get().isLoaded("immersivepetroleum");
 
     	modEventBus.register(StartupCommon.class);
     	DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> clientModEventRegistrar::registerClientOnlyEvents);

@@ -1,5 +1,8 @@
 package seraphaestus.factoriores;
 
+import static seraphaestus.factoriores.FactoriOres.CREATE_ACTIVE;
+import static seraphaestus.factoriores.FactoriOres.IE_ACTIVE;
+import static seraphaestus.factoriores.FactoriOres.IP_ACTIVE;
 import static seraphaestus.factoriores.FactoriOres.MOD_ID;
 
 import java.util.ArrayList;
@@ -170,19 +173,19 @@ public class Registrar {
 		oreTemplates.add(new OreTemplate("stone", "minecraft:stone", GenDistance.DISABLED));
 		oreTemplates.add(new OreTemplate("sulfur", "factoriores:sulfur_dust", GenDistance.MID));
 		// Create Ores
-		oreTemplates.add(new OreTemplate("copper", "create:crushed_copper_ore", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("zinc", "create:crushed_zinc_ore", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("copper", "create:crushed_copper_ore", CREATE_ACTIVE ? GenDistance.NEAR : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("zinc", "create:crushed_zinc_ore", CREATE_ACTIVE ? GenDistance.NEAR : GenDistance.DISABLED));
 		// Immersive Engineering Ores
-		oreTemplates.add(new OreTemplate("aluminum", "immersiveengineering:dust_aluminum", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("lead", "immersiveengineering:dust_lead", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("nickel", "immersiveengineering:dust_nickel", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("silver", "immersiveengineering:dust_silver", GenDistance.DISABLED));
-		oreTemplates.add(new OreTemplate("uranium", "immersiveengineering:dust_uranium", GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("aluminum", "immersiveengineering:dust_aluminum", IE_ACTIVE ? GenDistance.NEAR : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("lead", "immersiveengineering:dust_lead", IE_ACTIVE ? GenDistance.MID : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("nickel", "immersiveengineering:dust_nickel", IE_ACTIVE ? GenDistance.FAR : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("silver", "immersiveengineering:dust_silver", IE_ACTIVE ? GenDistance.MID : GenDistance.DISABLED));
+		oreTemplates.add(new OreTemplate("uranium", "immersiveengineering:dust_uranium", IE_ACTIVE ? GenDistance.FAR : GenDistance.DISABLED));
 		
 		//fluids
 		oreTemplates.add(new OreTemplate("water", "minecraft:water_bucket", GenDistance.NEAR).setFluid());
 		oreTemplates.add(new OreTemplate("lava", "minecraft:lava_bucket", GenDistance.MID).setFluid());
-		oreTemplates.add(new OreTemplate("oil", "immersivepetroleum:oil_bucket", GenDistance.DISABLED).setFluid());
+		oreTemplates.add(new OreTemplate("oil", "immersivepetroleum:oil_bucket", IP_ACTIVE ? GenDistance.MID : GenDistance.DISABLED).setFluid());
 	}
 
 	private static void registerOres() {
