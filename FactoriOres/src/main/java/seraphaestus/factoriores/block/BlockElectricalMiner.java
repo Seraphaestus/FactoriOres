@@ -15,7 +15,7 @@ public class BlockElectricalMiner extends BlockMiner {
 	public static final IntegerProperty LIT = IntegerProperty.create("lit", 0, 3);
 
 	public BlockElectricalMiner(Properties properties) {
-		super(properties.luminance(createLightLevelFromBlockState(6)));
+		super(properties.setLightLevel(createLightLevelFromBlockState(6)));
 		this.setDefaultState(this.stateContainer.getBaseState()
 				.with(ENABLED, false)
 				.with(LIT, 0));

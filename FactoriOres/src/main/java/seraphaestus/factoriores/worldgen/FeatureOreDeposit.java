@@ -34,7 +34,8 @@ public class FeatureOreDeposit extends Feature<FeatureConfigOreDeposit> {
 		if (pos.getY() <= 4) return false;
 
 		pos = pos.down(4);
-		if (seedReader.getStructures(SectionPos.from(pos), Structure.VILLAGE).findAny().isPresent()) 
+		// getStructures
+		if (seedReader.func_241827_a(SectionPos.from(pos), Structure.VILLAGE).findAny().isPresent())
 			return false;
 	
 		boolean[] isInShape = new boolean[2048];
@@ -105,9 +106,11 @@ public class FeatureOreDeposit extends Feature<FeatureConfigOreDeposit> {
 				for (int y = 4; y < 8; ++y) {
 					if (isInShape[(x * 16 + z) * 8 + y]) {
 						BlockPos blockpos = pos.add(x, y - 1, z);
-						if (isSoil(seedReader.getBlockState(blockpos).getBlock()) && seedReader.getLightLevel(LightType.SKY, pos.add(x, y, z)) > 0) {
+						if (isDirt(seedReader.getBlockState(blockpos).getBlock())
+								&& seedReader.getLightFor(LightType.SKY, pos.add(x, y, z)) > 0) {
 							Biome biome = seedReader.getBiome(blockpos);
-							if (biome.getGenerationSettings().getSurfaceConfig().getTop().isIn(Blocks.MYCELIUM)) {
+							if (biome.getGenerationSettings().getSurfaceBuilderConfig().getTop()
+									.matchesBlock(Blocks.MYCELIUM)) {
 								seedReader.setBlockState(blockpos, Blocks.MYCELIUM.getDefaultState(), 2);
 							} else {
 								seedReader.setBlockState(blockpos, Blocks.GRASS_BLOCK.getDefaultState(), 2);

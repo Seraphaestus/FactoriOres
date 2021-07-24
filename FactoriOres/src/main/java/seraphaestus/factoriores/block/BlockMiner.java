@@ -34,7 +34,8 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	
 	public BlockMiner(Properties properties) {
-		super(properties.hardnessAndResistance(3.5F, 3.5F).requiresTool().nonOpaque());
+		// notSolid was "nonOpaque"
+		super(properties.hardnessAndResistance(3.5F, 3.5F).setRequiresTool().notSolid());
 		this.setDefaultState(this.stateContainer.getBaseState()
 				.with(ENABLED, false));
 	}
@@ -67,7 +68,8 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+			Hand hand, BlockRayTraceResult rayTraceResult) {
 		
 		// cancel if the player's main hand is not empty
 		if (!player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;

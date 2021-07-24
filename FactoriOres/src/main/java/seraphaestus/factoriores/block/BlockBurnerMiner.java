@@ -32,7 +32,7 @@ public class BlockBurnerMiner extends BlockMiner {
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
 	public BlockBurnerMiner(Properties properties) {
-		super(properties.luminance(createLightLevelFromBlockState(13)));
+		super(properties.setLightLevel(createLightLevelFromBlockState(13)));
 		this.setDefaultState(this.stateContainer.getBaseState()
 				.with(ENABLED, false)
 				.with(LIT, false));
@@ -61,7 +61,8 @@ public class BlockBurnerMiner extends BlockMiner {
 	// -------- Events
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+			Hand hand, BlockRayTraceResult rayTraceResult) {
 		
 		boolean isHandFull = !player.getHeldItem(hand).isEmpty();
 		

@@ -196,7 +196,7 @@ public class PonderScenes {
 		
 		for (int i = 1; i <= 25; i++) {
 			final double height = p.y + 0.01 * i;
-			scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, height, p.z));
+			scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, height, p.z));
 			scene.idle(1);
 		}
 		
@@ -288,7 +288,7 @@ public class PonderScenes {
 		
 		for (int i = 1; i <= 5; i++) {
 			final double height = p.y + 0.01 * i;
-			scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, height, p.z));
+			scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, height, p.z));
 			scene.idle(10);
 			
 			if (i == 2) {
@@ -307,7 +307,7 @@ public class PonderScenes {
 					.withItem(Items.BUCKET.getDefaultInstance()),
 				10);
 		scene.idle(10);
-		scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, p.y + 0.03, p.z));
+		scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, p.y + 0.03, p.z));
 		scene.overlay.showControls(
 				new InputWindowElement(util.vector.blockSurface(miner.up(), Direction.NORTH), Pointing.RIGHT).rightClick()
 					.withItem(Items.WATER_BUCKET.getDefaultInstance()),

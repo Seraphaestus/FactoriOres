@@ -77,7 +77,8 @@ public class TileEntityOre extends TileEntityBase {
 	}
 	
 	protected Object getDrop(BlockState state, World world, BlockPos pos, @Nullable TileEntity tile) {
-		ServerWorld serverWorld = world.isRemote ? world.getServer().getWorld(world.getRegistryKey()) : (ServerWorld)world;
+		ServerWorld serverWorld = world.isRemote ? world.getServer().getWorld(world.getDimensionKey())
+				: (ServerWorld) world;
 		boolean isFromMiner = (tile != null) && (tile instanceof TileEntityMiner || tile instanceof TileEntityMechanicalMiner);
 
 		Block block = state.getBlock();
@@ -89,7 +90,10 @@ public class TileEntityOre extends TileEntityBase {
 	}
 	
 	protected Object getDrop(BlockState state, ServerWorld world, BlockOre oreBlock, @Nullable TileEntity tile, boolean isFromMiner) {
-		LootContext.Builder builder = (new LootContext.Builder(world)).withRandom(world.rand).withParameter(LootParameters.ORIGIN, Vector3d.ofCenter(pos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tile);
+		LootContext.Builder builder = (new LootContext.Builder(world)).withRandom(world.rand)
+				.withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(pos))
+				.withParameter(LootParameters.TOOL, ItemStack.EMPTY)
+				.withNullableParameter(LootParameters.BLOCK_ENTITY, tile);
 		List <ItemStack> drops = isFromMiner ? oreBlock.getDropsViaMiner(state, builder) : oreBlock.getDrops(state, builder);
 		return drops.isEmpty() ? emptyStack() : drops.get(0);
 	}

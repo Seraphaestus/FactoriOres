@@ -43,7 +43,7 @@ public class VecHelper {
 	public static Vector3d getCenterOf(Vector3i pos) {
 		if (pos.equals(Vector3i.NULL_VECTOR))
 			return CENTER_OF_ORIGIN;
-		return Vector3d.of(pos)
+		return Vector3d.copy(pos)
 			.add(.5f, .5f, .5f);
 	}
 }
