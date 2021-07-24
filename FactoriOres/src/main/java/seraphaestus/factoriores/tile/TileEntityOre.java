@@ -79,7 +79,7 @@ public class TileEntityOre extends TileEntityBase {
 	protected Object getDrop(BlockState state, World world, BlockPos pos, @Nullable TileEntity tile) {
 		ServerWorld serverWorld = world.isRemote ? world.getServer().getWorld(world.getDimensionKey())
 				: (ServerWorld) world;
-		boolean isFromMiner = (tile != null) && (tile instanceof TileEntityMiner || tile instanceof TileEntityMechanicalMiner);
+		boolean isFromMiner = (tile != null) && tile instanceof ITileEntityMiner;
 
 		Block block = state.getBlock();
 		if (block instanceof BlockOre) {

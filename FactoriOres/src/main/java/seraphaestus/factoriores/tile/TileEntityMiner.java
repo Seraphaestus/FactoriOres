@@ -39,7 +39,7 @@ import seraphaestus.factoriores.block.BlockOre;
 import seraphaestus.factoriores.data.StateDataMiner;
 import seraphaestus.factoriores.inventory.InventoryMiner;
 
-public abstract class TileEntityMiner extends TileEntityBase implements ITickableTileEntity {
+public abstract class TileEntityMiner extends TileEntityBase implements ITickableTileEntity, ITileEntityMiner {
 
 	public InventoryMiner items;
 	protected static final int OUTPUT_SLOT = 0;

@@ -49,7 +49,7 @@ import seraphaestus.factoriores.block.BlockOre;
 import seraphaestus.factoriores.data.StateDataMiner;
 import seraphaestus.factoriores.inventory.InventoryMiner;
 
-public class TileEntityMechanicalMiner extends KineticTileEntity implements IHaveGoggleInformation {
+public class TileEntityMechanicalMiner extends KineticTileEntity implements IHaveGoggleInformation, ITileEntityMiner {
 
 	public InventoryMiner items;
 	protected static final int OUTPUT_SLOT = 0;
