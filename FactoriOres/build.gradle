@@ -97,7 +97,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75")
     
-    runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:3102280")
+    runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:3377691")
     runtimeOnly fg.deobf("curse.maven:immersive-petroleum-268250:3137386")
 }
 
