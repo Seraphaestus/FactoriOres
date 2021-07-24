@@ -49,7 +49,7 @@ import seraphaestus.factoriores.block.BlockOre;
 import seraphaestus.factoriores.data.StateDataMiner;
 import seraphaestus.factoriores.inventory.InventoryMiner;
 
-public class TileEntityMechanicalMiner extends KineticTileEntity implements IHaveGoggleInformation {
+public class TileEntityMechanicalMiner extends KineticTileEntity implements IHaveGoggleInformation, ITileEntityMiner {
 
 	public InventoryMiner items;
 	protected static final int OUTPUT_SLOT = 0;
@@ -295,10 +295,16 @@ public class TileEntityMechanicalMiner extends KineticTileEntity implements IHav
 		if (placedOnOre()) {
 			String time = getOreDepletionETA();
 			if (time != null) {
-				tooltip.add(new StringTextComponent(spacing).append(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_miner_info").formatted(TextFormatting.WHITE)));
-				tooltip.add(new StringTextComponent(spacing).append(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_depletion_eta").formatted(TextFormatting.GRAY)));
-				tooltip.add(new StringTextComponent(spacing).append(new StringTextComponent(time).formatted(TextFormatting.AQUA))
-						.append(Lang.translate("gui.goggles.at_current_speed").formatted(TextFormatting.DARK_GRAY)));
+				tooltip.add(new StringTextComponent(spacing)
+						.appendSibling(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_miner_info")
+								.mergeStyle(TextFormatting.WHITE)));
+				tooltip.add(new StringTextComponent(spacing)
+						.appendSibling(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_depletion_eta")
+								.mergeStyle(TextFormatting.GRAY)));
+				tooltip.add(new StringTextComponent(spacing)
+						.appendSibling(new StringTextComponent(time).mergeStyle(TextFormatting.AQUA))
+						.appendSibling(
+								Lang.translate("gui.goggles.at_current_speed").mergeStyle(TextFormatting.DARK_GRAY)));
 			}
 			added = true;
 		}

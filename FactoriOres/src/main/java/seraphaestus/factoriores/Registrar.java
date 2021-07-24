@@ -91,7 +91,8 @@ public class Registrar {
 	
 	// -------- Simple blocks
 	
-	public static final Block blockGangue = new Block(AbstractBlock.Properties.create(Material.ROCK).requiresTool().hardnessAndResistance(1.5F, 6.0F));
+	public static final Block blockGangue = new Block(
+			AbstractBlock.Properties.create(Material.ROCK).setRequiresTool().hardnessAndResistance(1.5F, 6.0F));
 	public static BlockSulfur sulfurBlock;
 	
 	// -------- Blocks with tile entities
@@ -255,8 +256,7 @@ public class Registrar {
 		PlacementConfigOreDeposit placementConfig = new PlacementConfigOreDeposit(template.genRarity, template.genDepth, template.genDistance.toString());
 		
 		final ConfiguredFeature<?, ?> configuredFeature = feature
-				.configure(featureConfig)
-				.decorate(decorator.configure(placementConfig));
+				.withConfiguration(featureConfig).withPlacement(decorator.configure(placementConfig));
 		
 		//Register the feature
 		configuredFeaturesDeposits.add(configuredFeature);

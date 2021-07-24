@@ -86,7 +86,7 @@ public class CommandSetOreBlock {
 				FactoriOres.LOGGER.debug("test");
 				((TileEntityOre)tileEntity).setAmount(amount);
 			}
-			serverworld.updateNeighbors(blockPos, stateIn.getState().getBlock());
+			serverworld.notifyNeighborsOfStateChange(blockPos, stateIn.getState().getBlock());
 			commandSource.sendFeedback(new TranslationTextComponent("commands." + ID + ".success", blockPos.getX(), blockPos.getY(), blockPos.getZ()), true);
 			return 1;
 		}

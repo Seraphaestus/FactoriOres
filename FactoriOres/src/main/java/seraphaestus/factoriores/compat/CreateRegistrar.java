@@ -39,9 +39,9 @@ public class CreateRegistrar {
 	public static BlockEntry<BlockMechanicalMiner> blockMechanicalMiner = subRegistrate
 			.block("mechanical_miner", BlockMechanicalMiner::new)
 				.initialProperties(SharedProperties::softMetal)
-				.properties(AbstractBlock.Properties::nonOpaque)
+			.properties(AbstractBlock.Properties::notSolid) // was nonOpaque
 				.properties(p -> p.hardnessAndResistance(3.5F, 3.5F))
-				.properties(p -> p.requiresTool())
+			.properties(p -> p.setRequiresTool())
 				.tag(AllBlockTags.SAFE_NBT.tag) // Unsure what this tag means (contraption safe?)
 				.item(BlockItemMiner::new)
 				.transform(customItemModel())

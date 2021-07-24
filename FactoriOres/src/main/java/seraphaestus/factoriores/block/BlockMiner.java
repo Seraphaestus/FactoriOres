@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import seraphaestus.factoriores.ConfigHandler;
-import seraphaestus.factoriores.tile.TileEntityMechanicalMiner;
+import seraphaestus.factoriores.tile.ITileEntityMiner;
 import seraphaestus.factoriores.tile.TileEntityMiner;
 import seraphaestus.factoriores.util.VecHelper;
 
@@ -34,7 +34,8 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	
 	public BlockMiner(Properties properties) {
-		super(properties.hardnessAndResistance(3.5F, 3.5F).requiresTool().nonOpaque());
+		// notSolid was "nonOpaque"
+		super(properties.hardnessAndResistance(3.5F, 3.5F).setRequiresTool().notSolid());
 		this.setDefaultState(this.stateContainer.getBaseState()
 				.with(ENABLED, false));
 	}
@@ -67,7 +68,8 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+			Hand hand, BlockRayTraceResult rayTraceResult) {
 		
 		// cancel if the player's main hand is not empty
 		if (!player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
@@ -98,7 +100,7 @@ public abstract class BlockMiner extends BlockTEBase implements ITileEntityProvi
 				if (x == 0 && z == 0) continue;
 				TileEntity check = world.getTileEntity(pos.add(x, 0, z));
 				if (check == null) continue;
-				if (check instanceof TileEntityMiner || check instanceof TileEntityMechanicalMiner) 
+				if (check instanceof ITileEntityMiner)
 					return true;
 			}
 		}

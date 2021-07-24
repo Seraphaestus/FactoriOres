@@ -37,7 +37,10 @@ public class TileEntityOreFluid extends TileEntityOre {
 	
 	public Object getDrop(BlockState state, ServerWorld world, BlockOre oreBlock, @Nullable TileEntity tile, boolean isFromMiner) {
 		if (oreBlock instanceof BlockOreFluid) {
-			LootContext.Builder builder = (new LootContext.Builder(world)).withRandom(world.rand).withParameter(LootParameters.ORIGIN, Vector3d.ofCenter(pos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tile);
+			LootContext.Builder builder = (new LootContext.Builder(world)).withRandom(world.rand)
+					.withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(pos))
+					.withParameter(LootParameters.TOOL, ItemStack.EMPTY)
+					.withNullableParameter(LootParameters.BLOCK_ENTITY, tile);
 			return isFromMiner ? ((BlockOreFluid)oreBlock).getFluidDropViaMiner(state, builder) : emptyStack();
 		}
 		return emptyStack();

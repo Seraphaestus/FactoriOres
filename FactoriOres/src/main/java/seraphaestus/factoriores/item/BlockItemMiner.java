@@ -67,7 +67,7 @@ public class BlockItemMiner extends BlockItem {
 						itemstack.shrink(1);
 					}
 
-					return ActionResultType.success(world.isRemote);
+					return ActionResultType.func_233537_a_(world.isRemote); // success(isRemote)
 				}
 			}
 		}
@@ -77,7 +77,9 @@ public class BlockItemMiner extends BlockItem {
 	protected boolean canPlace(BlockItemUseContext context, BlockState state) {
 		PlayerEntity playerentity = context.getPlayer();
 		ISelectionContext iselectioncontext = playerentity == null ? ISelectionContext.dummy() : ISelectionContext.forEntity(playerentity);
-		return (!this.checkPosition() || state.isValidPosition(context.getWorld(), this.getPos(context))) && context.getWorld().canPlace(state, this.getPos(context), iselectioncontext); // EDITx2
+		// "placedBlockCollides" = canPlace
+		return (!this.checkPosition() || state.isValidPosition(context.getWorld(), this.getPos(context)))
+				&& context.getWorld().placedBlockCollides(state, this.getPos(context), iselectioncontext); // EDITx2
 	}
 	
 	@Override

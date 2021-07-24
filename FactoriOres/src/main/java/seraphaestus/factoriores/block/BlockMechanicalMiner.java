@@ -87,7 +87,8 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
+			Hand hand, BlockRayTraceResult rayTraceResult) {
 		
 		// cancel if the player's main hand is not empty
 		if (!player.getHeldItem(hand).isEmpty()) return ActionResultType.PASS;
@@ -129,7 +130,7 @@ public class BlockMechanicalMiner extends KineticBlock implements ITE<TileEntity
 	
 	@OnlyIn(Dist.CLIENT)
 	public boolean isSideInvisible(BlockState state2, BlockState state1, Direction side) {
-		if (side == Direction.DOWN || side == Direction.UP || !state1.isIn(this)) {
+		if (side == Direction.DOWN || side == Direction.UP || !state1.matchesBlock(this)) {
 			return super.isSideInvisible(state2, state1, side);
 		}
 		return true;

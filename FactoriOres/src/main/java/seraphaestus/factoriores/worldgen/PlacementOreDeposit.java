@@ -50,7 +50,8 @@ public class PlacementOreDeposit extends Placement<PlacementConfigOreDeposit> {
 		if (!failFlag && rnd.nextInt(randomMax) == 0) {
 			int x = rnd.nextInt(16) + pos.getX();
 			int z = rnd.nextInt(16) + pos.getZ();
-			int y = decorationHelper.getMaxY() - rnd.nextInt(config.genDepth);
+			// getMaxY or "max build height"
+			int y = decorationHelper.func_242891_a() - rnd.nextInt(config.genDepth);
 			return Stream.of(new BlockPos(x, y, z));
 		} else {
 			return Stream.empty();

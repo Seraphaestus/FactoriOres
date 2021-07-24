@@ -41,7 +41,7 @@ public class OreLootTableProvider extends LootTableProvider {
 	@Override
 	protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
 		map.forEach((resourceLocation, table) -> {
-			LootTableManager.validate(validationtracker, resourceLocation, table);
+			LootTableManager.validateLootTable(validationtracker, resourceLocation, table);
 		});
 	}
 }

@@ -61,13 +61,13 @@ public class TOPCompat implements Function<ITheOneProbe, Void> {
     			}
     			
     			if (amount == TileEntityOre.AMOUNT_DUMMY) {
-    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_dummy").formatted(TextFormatting.GRAY));
+    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_dummy").mergeStyle(TextFormatting.GRAY));
     			} else if (amount == TileEntityOre.AMOUNT_INFINITE) { 
-    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_infinite").formatted(TextFormatting.GRAY));
+    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_block_infinite").mergeStyle(TextFormatting.GRAY));
     			}
     			
     			if (blockOre.requiresLixiviant()) {
-    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_requires_lixiviant").formatted(TextFormatting.GREEN));
+    				probeInfo.text(new TranslationTextComponent(FactoriOres.MOD_ID + ".tooltip.ore_requires_lixiviant").mergeStyle(TextFormatting.GREEN));
     			}
     		}
     	}
@@ -95,10 +95,11 @@ public class TOPCompat implements Function<ITheOneProbe, Void> {
     			color = new Color(255, 139, 27);
         	}
         	
-        	IFormattableTextComponent text = new StringTextComponent("" + amountMB).append("mB");
+			IFormattableTextComponent text = new StringTextComponent("" + amountMB).appendString("mB");
         	
         	IFormattableTextComponent prefix = (IFormattableTextComponent) fluidStack.getDisplayName();
-        	if (amountMB > 0) prefix = prefix.append(": ");
+			if (amountMB > 0)
+				prefix = prefix.appendString(": ");
         	
         	IProgressStyle progressStyle = probeInfo.defaultProgressStyle()
         			.numberFormat(NumberFormat.NONE)

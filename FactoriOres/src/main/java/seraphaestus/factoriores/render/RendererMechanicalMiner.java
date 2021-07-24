@@ -31,7 +31,7 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(KineticTileEntity te) {
-		return CreateClient.bufferCache.renderPartial(AllBlockPartials.MILLSTONE_COG, te.getBlockState());
+		return CreateClient.BUFFER_CACHE.renderPartial(AllBlockPartials.MILLSTONE_COG, te.getBlockState());
 	}
 	
 	@Override
@@ -58,12 +58,13 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 			//float angle = (float)(animationTicks * speed % 360);
 			float angle = ConfigHandler.CLIENT.staticDrills.get() ? 0 : getAngleForTe(tileEntity, tileEntity.getPos(), Axis.Y);
 			matrixStack.translate(0.5, 0.0, 0.5);
-			matrixStack.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(angle));
+			matrixStack.rotate(Vector3f.YP.rotation(angle));
 			matrixStack.translate(-0.5, 0.0, -0.5);
 		}
 		
-		bmr.renderModel(matrixStack.peek(), 
-						bufferIn.getBuffer(RenderTypeLookup.getEntityBlockLayer(state, false)),
+		bmr.renderModel(matrixStack.getLast(), 
+				// getEntityBlockLayer
+				bufferIn.getBuffer(RenderTypeLookup.func_239220_a_(state, false)),
 						state,
 						drillHead, 1, 1, 1, light, overlay, data);
 		matrixStack.pop();

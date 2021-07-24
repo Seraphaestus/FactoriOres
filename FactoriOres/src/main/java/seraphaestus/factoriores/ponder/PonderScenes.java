@@ -196,7 +196,7 @@ public class PonderScenes {
 		
 		for (int i = 1; i <= 25; i++) {
 			final double height = p.y + 0.01 * i;
-			scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, height, p.z));
+			scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, height, p.z));
 			scene.idle(1);
 		}
 		
@@ -288,7 +288,7 @@ public class PonderScenes {
 		
 		for (int i = 1; i <= 5; i++) {
 			final double height = p.y + 0.01 * i;
-			scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, height, p.z));
+			scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, height, p.z));
 			scene.idle(10);
 			
 			if (i == 2) {
@@ -307,7 +307,7 @@ public class PonderScenes {
 					.withItem(Items.BUCKET.getDefaultInstance()),
 				10);
 		scene.idle(10);
-		scene.world.modifyEntity(fakeLiquid, e -> e.setPos(p.x, p.y + 0.03, p.z));
+		scene.world.modifyEntity(fakeLiquid, e -> e.setPosition(p.x, p.y + 0.03, p.z));
 		scene.overlay.showControls(
 				new InputWindowElement(util.vector.blockSurface(miner.up(), Direction.NORTH), Pointing.RIGHT).rightClick()
 					.withItem(Items.WATER_BUCKET.getDefaultInstance()),
@@ -323,9 +323,9 @@ public class PonderScenes {
 		BlockParticleData data = new BlockParticleData(ParticleTypes.BLOCK, ore);
 		Vector3d motion = util.vector.of(0, 0.15, 0);
 		return (w, x, y, z) -> w.addParticle(data, 
-				Math.floor(x) + Create.random.nextFloat(),
+				Math.floor(x) + Create.RANDOM.nextFloat(),
 				Math.floor(y) + 0.1, 
-				Math.floor(z) + Create.random.nextFloat(), 
+				Math.floor(z) + Create.RANDOM.nextFloat(), 
 				motion.x, motion.y, motion.z);
 	}
 }

@@ -41,8 +41,9 @@ public class RenderHelper {
 	public static void drawUpHighlight(MatrixStack matrixStack, IRenderTypeBuffer renderBuffer, Color color, int combinedLight) {
 		IVertexBuilder vertexBuilderBlockQuads = renderBuffer.getBuffer(RenderType.getEntityTranslucent(blankTexture));
 
-		Matrix4f matrixPos = matrixStack.peek().getModel(); // retrieves the current transformation matrix
-		Matrix3f matrixNormal = matrixStack.peek().getNormal(); // retrieves the current transformation matrix for the normal vector
+		Matrix4f matrixPos = matrixStack.getLast().getMatrix(); // retrieves the current transformation matrix
+		Matrix3f matrixNormal = matrixStack.getLast().getNormal(); // retrieves the current transformation matrix for
+																	// the normal vector
 
 		// we use the whole texture
 		Vector2f bottomLeftUV = new Vector2f(0.0F, 1.0F);
@@ -132,7 +133,7 @@ public class RenderHelper {
 		Vector2f topLeftUVpos = new Vector2f(bottomLeftUV.x + texUwidth, bottomLeftUV.y + texVheight);
 		Vector2f topRightUVpos = new Vector2f(bottomLeftUV.x, bottomLeftUV.y + texVheight);
 
-		Vector3f normalVector = whichFace.getUnitVector(); // gives us the normal to the face
+		Vector3f normalVector = whichFace.toVector3f(); // gives us the normal to the face
 
 		addQuadVertex(matrixPos, matrixNormal, renderBuffer, bottomLeftPos, bottomLeftUVpos, normalVector, color, lightmapValue);
 		addQuadVertex(matrixPos, matrixNormal, renderBuffer, bottomRightPos, bottomRightUVpos, normalVector, color, lightmapValue);
@@ -143,11 +144,11 @@ public class RenderHelper {
 	private static void addQuadVertex(Matrix4f matrixPos, Matrix3f matrixNormal, IVertexBuilder renderBuffer,
 			Vector3f pos, Vector2f texUV,
 			Vector3f normalVector, Color color, int lightmapValue) {
-		renderBuffer.vertex(matrixPos, pos.getX(), pos.getY(), pos.getZ()) // position coordinate
+		renderBuffer.pos(matrixPos, pos.getX(), pos.getY(), pos.getZ()) // position coordinate
 				.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()) // color
-				.texture(texUV.x, texUV.y) // texel coordinate
-				.overlay(OverlayTexture.DEFAULT_UV) // only relevant for rendering Entities (Living)
-				.light(lightmapValue) // lightmap with full brightness
+				.tex(texUV.x, texUV.y) // texel coordinate
+				.overlay(OverlayTexture.NO_OVERLAY) // only relevant for rendering Entities (Living)
+				.lightmap(lightmapValue) // lightmap with full brightness
 				.normal(matrixNormal, normalVector.getX(), normalVector.getY(), normalVector.getZ())
 				.endVertex();
 	}

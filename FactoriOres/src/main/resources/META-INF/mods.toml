@@ -29,5 +29,5 @@ Factoriores is a mod that adds ores and miners inspired by the game Factorio
     modId="create"
     mandatory=false
     versionRange="[mc1.16.5_v0.3.1,)"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"

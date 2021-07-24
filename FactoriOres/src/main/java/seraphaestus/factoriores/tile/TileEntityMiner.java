@@ -39,7 +39,7 @@ import seraphaestus.factoriores.block.BlockOre;
 import seraphaestus.factoriores.data.StateDataMiner;
 import seraphaestus.factoriores.inventory.InventoryMiner;
 
-public abstract class TileEntityMiner extends TileEntityBase implements ITickableTileEntity {
+public abstract class TileEntityMiner extends TileEntityBase implements ITickableTileEntity, ITileEntityMiner {
 
 	public InventoryMiner items;
 	protected static final int OUTPUT_SLOT = 0;
@@ -337,8 +337,8 @@ public abstract class TileEntityMiner extends TileEntityBase implements ITickabl
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundNBT nbtTagCompound) {
-		super.fromTag(blockState, nbtTagCompound); // The super call is required to save and load the tile's location
+	public void read(BlockState blockState, CompoundNBT nbtTagCompound) {
+		super.read(blockState, nbtTagCompound); // The super call is required to save and load the tile's location
 
 		minerStateData.readFromNBT(nbtTagCompound);
 
