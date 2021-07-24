@@ -31,7 +31,7 @@ public class RendererMechanicalMiner extends KineticTileEntityRenderer {
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(KineticTileEntity te) {
-		return CreateClient.bufferCache.renderPartial(AllBlockPartials.MILLSTONE_COG, te.getBlockState());
+		return CreateClient.BUFFER_CACHE.renderPartial(AllBlockPartials.MILLSTONE_COG, te.getBlockState());
 	}
 	
 	@Override

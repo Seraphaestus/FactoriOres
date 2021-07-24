@@ -323,9 +323,9 @@ public class PonderScenes {
 		BlockParticleData data = new BlockParticleData(ParticleTypes.BLOCK, ore);
 		Vector3d motion = util.vector.of(0, 0.15, 0);
 		return (w, x, y, z) -> w.addParticle(data, 
-				Math.floor(x) + Create.random.nextFloat(),
+				Math.floor(x) + Create.RANDOM.nextFloat(),
 				Math.floor(y) + 0.1, 
-				Math.floor(z) + Create.random.nextFloat(), 
+				Math.floor(z) + Create.RANDOM.nextFloat(), 
 				motion.x, motion.y, motion.z);
 	}
 }
