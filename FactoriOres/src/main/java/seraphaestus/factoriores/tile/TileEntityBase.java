@@ -41,7 +41,7 @@ public class TileEntityBase extends TileEntity {
 
 	@Override
 	public void handleUpdateTag(BlockState blockState, CompoundNBT tag) {
-		fromTag(blockState, tag);
+		read(blockState, tag);
 	}
 
 }

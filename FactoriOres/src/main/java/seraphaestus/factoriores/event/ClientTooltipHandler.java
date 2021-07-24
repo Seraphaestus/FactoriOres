@@ -80,17 +80,17 @@ public class ClientTooltipHandler {
 				Lang.translatedOptions("tooltip.speedRequirement", "none", "medium", "high");
 			int index = minimumRequiredSpeedLevel.ordinal();
 			IFormattableTextComponent level =
-				new StringTextComponent(ItemDescription.makeProgressBar(3, index)).formatted(minimumRequiredSpeedLevel.getTextColor());
+					new StringTextComponent(ItemDescription.makeProgressBar(3, index))
+							.mergeStyle(minimumRequiredSpeedLevel.getTextColor());
 
 			if (hasGlasses)
-				level.append(String.valueOf(minimumRequiredSpeedLevel.getSpeedValue()))
-					.append(rpmUnit)
-					.append("+");
+				level.appendString(String.valueOf(minimumRequiredSpeedLevel.getSpeedValue())).appendSibling(rpmUnit)
+						.appendString("+");
 			else
-				level.append(speedLevels.get(index));
+				level.appendSibling(speedLevels.get(index));
 
 			list.add(Lang.translate("tooltip.speedRequirement")
-				.formatted(GRAY));
+					.mergeStyle(GRAY));
 			list.add(level);
 		}
 		
@@ -102,16 +102,16 @@ public class ClientTooltipHandler {
 				: (impact >= config.mediumStressImpact.get() ? StressImpact.MEDIUM : StressImpact.LOW);
 			int index = impactId.ordinal();
 			IFormattableTextComponent level =
-				new StringTextComponent(ItemDescription.makeProgressBar(3, index)).formatted(impactId.getAbsoluteColor());
+					new StringTextComponent(ItemDescription.makeProgressBar(3, index))
+							.mergeStyle(impactId.getAbsoluteColor());
 
 			if (hasGlasses)
-				level.append(impact + "x ")
-					.append(rpmUnit);
+				level.appendString(impact + "x ").appendSibling(rpmUnit);
 			else
-				level.append(stressLevels.get(index));
+				level.appendSibling(stressLevels.get(index));
 
 			list.add(Lang.translate("tooltip.stressImpact")
-				.formatted(GRAY));
+					.mergeStyle(GRAY));
 			list.add(level);
 		}
 

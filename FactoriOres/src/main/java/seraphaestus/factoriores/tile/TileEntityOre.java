@@ -105,8 +105,8 @@ public class TileEntityOre extends TileEntityBase {
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundNBT nbtTagCompound) {
-		super.fromTag(blockState, nbtTagCompound); // The super call is required to save and load the tile's location
+	public void read(BlockState blockState, CompoundNBT nbtTagCompound) {
+		super.read(blockState, nbtTagCompound); // The super call is required to save and load the tile's location
 		
 		amount = nbtTagCompound.getInt("amount");
 	}

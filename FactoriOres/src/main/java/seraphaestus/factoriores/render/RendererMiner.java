@@ -53,12 +53,13 @@ public class RendererMiner extends TileEntityRenderer<TileEntityMiner> {
 			double animationTicks = ClientTickHandler.getTotalElapsedTicksInGame() + partialTicks;
 			float angle = (float)(animationTicks * speed % 360);
 			matrixStack.translate(0.5, 0.0, 0.5);
-			matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-angle));
+			matrixStack.rotate(Vector3f.YP.rotationDegrees(-angle));
 			matrixStack.translate(-0.5, 0.0, -0.5);
 		}
 		
-		bmr.renderModel(matrixStack.peek(), 
-						bufferIn.getBuffer(RenderTypeLookup.getEntityBlockLayer(state, false)),
+		bmr.renderModel(matrixStack.getLast(),
+				// getEntityBlockLayer
+				bufferIn.getBuffer(RenderTypeLookup.func_239220_a_(state, false)),
 						state,
 						drillHead, 1, 1, 1, light, overlay, data);
 		matrixStack.pop();

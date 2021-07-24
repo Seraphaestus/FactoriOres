@@ -86,8 +86,8 @@ public class TileEntityElectricalMiner extends TileEntityMiner {
 	}
 
 	@Override
-	public void fromTag(BlockState blockState, CompoundNBT nbtTagCompound) {
-		super.fromTag(blockState, nbtTagCompound);
+	public void read(BlockState blockState, CompoundNBT nbtTagCompound) {
+		super.read(blockState, nbtTagCompound);
 		
 		energy.read(nbtTagCompound);
 	}
